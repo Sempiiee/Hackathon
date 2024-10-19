@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import "./Styles/ActiveTab.scss";
 import "./Styles/Goal.scss";
 import { useNavigate } from 'react-router-dom';
-import WaterGallonMain from "../public/Water_Gallon_Main.png";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 
 interface Note {
     id: number;
     content: string;
-    progress: number; // Progress value from 0 to 100
+    progress: number;
 }
 
 const Goal: React.FC = () => {
@@ -24,7 +23,7 @@ const Goal: React.FC = () => {
             const newNote: Note = {
                 id: Date.now(),
                 content: inputValue,
-                progress: 0, // Start progress at 0
+                progress: 0,
             };
             setNotes([...notes, newNote]);
         }

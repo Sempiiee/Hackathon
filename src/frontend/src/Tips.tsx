@@ -9,9 +9,21 @@ const Tips: React.FC = () => {
     const navigate = useNavigate();
     
     const handleTabClick = (tab: string) => {
-        setActiveTab(tab);
-        navigate(`/${tab.replace(/ & /g, "").replace(/\s+/g, "")}`);
-    };
+      setActiveTab(tab);
+      if (tab === "Log Usage") {
+          navigate('/LogUsage'); 
+        } else if (tab === "Tips & Advice") {
+          navigate('/Tips'); 
+        } else if (tab === "Overview") {
+          navigate('/App');
+        }
+        else if (tab === "Goals") {
+            navigate('/Goal');
+        }
+        else if (tab === "Impact") {
+            navigate('/Impact');
+        }
+  };
     
     const [isMenuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => {

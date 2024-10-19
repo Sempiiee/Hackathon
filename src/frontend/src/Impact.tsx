@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./Styles/ActiveTab.scss";
 import { useNavigate } from 'react-router-dom';
-import WaterGallonMain from "../public/Water_Gallon_Main.png";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import WaterUse from "../public/test.png";
 const Impact: React.FC = () => {
@@ -55,7 +54,7 @@ const Impact: React.FC = () => {
                         className={`tab ${activeTab === tab ? "active" : ""}`}
                         onClick={() => {
                             handleTabClick(tab);
-                            setMenuOpen(false); // Close menu on tab click
+                            setMenuOpen(false);
                         }}
                         >
                         {tab}

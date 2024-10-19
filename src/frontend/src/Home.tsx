@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { useNavigate } from 'react-router-dom';
-import WaterGallonMain from "../public/Water_Gallon_Main.png";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 
 interface HomeProps {
