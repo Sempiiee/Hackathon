@@ -1,7 +1,7 @@
 .message-bubbles-container {
     position: absolute; // Position relative to the nearest positioned ancestor
     right: 20px; // Distance from the right side of the container
-    top: 50%; // Center vertically
+    top: 100%; // Center vertically
     transform: translateY(-50%); // Adjust to center vertically
     z-index: 1000; // Ensure it's above other elements
 

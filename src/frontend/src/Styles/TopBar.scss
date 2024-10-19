@@ -7,100 +7,112 @@
     top: 0;
     left: 0;
     right: 0;
-    padding: 8px;
+    height: 75px; // Initial height
+    padding: 8px; // Initial padding
     background: linear-gradient(to bottom, #e0e0e0, #ffffff);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    transition: height 0.25s, padding 0.25s;
-  
+    transition: height 0.5s ease, padding 0.5s ease, opacity 0.5s ease; // Transition for height, padding, and opacity
+
     @media (max-width: 1300px) {
-      height: 65px; // Increase the height for mobile
-      padding: 1px 10px; // Adjust padding if needed
+        height: 65px; // Increased height for mobile
+        padding: 15px 10px; // Adjust padding if needed
+        opacity: 0.9; // Optional: Slight fade effect when in mobile view
     }
-  }
-  
-  // Menu button styling
-  .menu-button {
+}
+
+// Menu button styling
+.menu-button {
     display: none; // Hidden by default
     background-color: transparent; // Default background
-  
+
     @media (max-width: 1300px) {
-      display: flex; // Show on mobile
-      position: absolute;
-      left: 1%;
-      top: 50%;
-      transform: translateY(-50%);
-      flex-direction: column;
-      cursor: pointer;
-      margin-right: 2.5%;
-      width: 60px;
-      height: 60px;
-      align-items: center;
-  
-      &.open {
-        background-color: rgb(207, 207, 207);
-        border-radius: 3px;
-      }
-  
-      div {
-        width: 30px;
-        height: 4px;
-        background: #000000;
-        border-radius: 3px;
-        margin: -10px 0;
-        margin-top: 17px;
-        transform: scaleX(1.15);
-      }
+        display: flex; // Show on mobile
+        position: absolute;
+        left: 1%;
+        top: 50%;
+        transform: translateY(-50%);
+        flex-direction: column;
+        cursor: pointer;
+        margin-right: 2.5%;
+        width: 60px;
+        height: 60px;
+        align-items: center;
+
+        &.open {
+            background-color: rgb(207, 207, 207);
+            border-radius: 3px;
+        }
+
+        div {
+            width: 30px;
+            height: 4px;
+            background: #000000;
+            border-radius: 3px;
+            margin: -10px 0;
+            margin-top: 17px;
+            transform: scaleX(1.15);
+        }
     }
-  }
-  
-  // Dropdown menu styling
-  .dropdown-menu {
+}
+
+// Dropdown menu styling
+.dropdown-menu {
     display: none; // Hide menu by default
     opacity: 0;
     transition: opacity 0.3s ease;
-  
+
     &.open {
-      display: flex;
-      opacity: 1; 
-      flex-direction: column;
-      position: absolute;
-      top: 60px; // Adjust this value as needed
-      right: 0; // Align to the right
-      width: 200px; // Set a fixed width for the dropdown
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      z-index: 2000; 
-      margin-top: 10px; // Optional: add margin for spacing
+        display: flex;
+        opacity: 1; 
+        flex-direction: column;
+        position: absolute;
+        top: 60px; // Adjust this value as needed
+        right: 0; // Align to the right
+        width: 200px; // Set a fixed width for the dropdown
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 2000; 
+        margin-top: 10px; // Optional: add margin for spacing
     }
-  }
-  
-  // Logo styling
-  .logo {
+
+    .tab {
+        padding: 10px;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f0f0f0; // Change background on hover
+        }
+    }
+}
+
+// Logo styling
+.logo {
     display: flex;
     align-items: center;
-  
+
     img {
-      height: 40px;
+        height: 40px;
     }
-  
+
     h1 {
-      font-size: 1.5rem;
-      color: black;
+        font-size: 1.5rem;
+        color: black;
     }
-  
+
     @media (max-width: 1300px) {
-      position: absolute;
-      left: 48.5%;
-      transform: translateX(-50%);
-      align-items: center;
-      justify-content: center;
-      flex: 1;
+        position: absolute;
+        left: 48.5%;
+        transform: translateX(-50%);
+        align-items: center;
+        justify-content: center;
+        flex: 1;
     }
-  }
-  
-  // Navigation styling
-  .nav {
+}
+
+// Navigation styling
+.nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -108,57 +120,57 @@
     left: 30%;
     width: 40%;
     text-align: center;
-  
+
     @media (max-width: 1300px) {
-      display: none; // Hide on mobile by default
+        display: none; // Hide on mobile by default
     }
-  
+
     &.open {
-      display: flex;
-      flex-direction: column;
-      position: absolute;
-      top: 75px;
-      left: 8px;
-      right: 0;
-      width: 200px;
-      background: white;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      z-index: 2000;
-      transition: max-height 0.3s ease;
-      max-height: 300px;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 75px;
+        left: 8px;
+        right: 0;
+        width: 200px;
+        background: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 2000;
+        transition: max-height 0.3s ease;
+        max-height: 300px;
     }
-  }
-  
-  // Hamburger menu styling
-  .hamburger {
+}
+
+// Hamburger menu styling
+.hamburger {
     display: none;
-  
+
     @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-      width: 60px;
-      height: 60px;
-      margin: auto;
-      justify-content: center;
-      align-items: center;
-  
-      &.open {
-        background-color: rgb(255, 0, 0);
-      }
-  
-      div {
-        width: 30px;
-        height: 4px;
-        background: #000000;
-        margin: 2px 0;
-        border-radius: 3px;
-      }
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        width: 60px;
+        height: 60px;
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+
+        &.open {
+            background-color: rgb(255, 0, 0);
+        }
+
+        div {
+            width: 30px;
+            height: 4px;
+            background: #000000;
+            margin: 2px 0;
+            border-radius: 3px;
+        }
     }
-  }
-  
-  // Tab styling
-  .tab {
+}
+
+// Tab styling
+.tab {
     cursor: pointer;
     padding: 10px; 
     flex: 1; 
@@ -166,53 +178,56 @@
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    transition: color 0.3s, opacity 0.3s;
-    
+    transition: color 0.3s, opacity 0.5s; // Include opacity in transitions
+
     // Default border set to transparent
     border-bottom: 3px solid transparent; 
-  
+
+    opacity: 1; // Default opacity
+
+    // Active state
     &.active {
-      font-weight: bold;
-      color: black; 
-      border-bottom: 3px solid lightgrey; 
-  
-      @media (max-width: 768px) {
-        border-bottom: none; // No border for active on mobile
-      }
-    }
-  
-    &:hover {
-      color: #5474eb; 
-      border-bottom: 3px solid #5474eb; // Show blue bar on hover
-    }
-  
-    &:not(.active) {
-      color: grey; 
-    }
-  
-    @media (max-width: 768px) {
-      border-bottom: none; // Remove underline for all tabs on mobile
-  
-      &.active {
-        background-color: lightgrey; 
+        font-weight: bold;
         color: black; 
-      }
-  
-      &:hover {
-        border-bottom: none; // Ensure no underline on hover
-      }
+        border-bottom: 3px solid lightgrey; 
+
+        @media (max-width: 768px) {
+            border-bottom: none; // No border for active on mobile
+        }
     }
-  }
-  
-  // Greeting section
-  .greeting {
+
+    &:hover {
+        color: #5474eb; 
+        border-bottom: 3px solid #5474eb; // Show blue bar on hover
+    }
+
+    &:not(.active) {
+        color: grey; 
+    }
+
+    @media (max-width: 768px) {
+        border-bottom: none; // Remove underline for all tabs on mobile
+
+        &.active {
+            background-color: lightgrey; 
+            color: black; 
+        }
+
+        &:hover {
+            border-bottom: none; // Ensure no underline on hover
+        }
+    }
+}
+
+// Greeting section
+.greeting {
     margin-left: auto;
     display: flex;
     font-weight: 525;
     align-items: center;
     font-size: 1.4rem;
-  }
-  
-  .dropdown-arrow {
+}
+
+.dropdown-arrow {
     margin-left: 5px;
-  }  
+}

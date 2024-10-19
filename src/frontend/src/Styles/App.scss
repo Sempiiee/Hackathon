@@ -64,7 +64,7 @@ body {
       justify-content: center;
       align-items: center;
       position: relative; 
-      margin-top: 20px; 
+      margin-top: 28%; 
       width: 100%;
       padding: 0; 
       flex: 1;
@@ -103,7 +103,7 @@ body {
       }
 
       
-      @media (max-width: 768px) {
+      @media (max-width: 1300px) {
         .gallon-section {
           justify-content: center;
           margin-top: -50px; /* Adjust margin for mobile */
@@ -113,7 +113,7 @@ body {
         .gallon-image,
         .gallon-empty-image,
         .gallon-filled-image {
-          width: 150%; /* Responsive width for mobile */
+          width: 100%; /* Responsive width for mobile */
           max-width: 3000px; /* Set a max width for better control */
         }
       }
@@ -180,7 +180,8 @@ body {
     flex-direction: column; // Stack text and arrows vertically
     align-items: center; // Center horizontally
     justify-content: center; // Center vertically
-    margin-top: -133%; // Adjust space above the section
+    margin-top: -190%; // Adjust space above the section
+    margin-left: 0%; // Adjust margin from the left
 
     .scroll-text {
       color: darkgrey; // Text color
@@ -220,7 +221,7 @@ body {
       }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1300px) {
       margin-top: -175%; // Adjust margin for smaller screens
       margin-left: 0%; // Adjust margin from the left
   
