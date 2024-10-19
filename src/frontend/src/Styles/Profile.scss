@@ -1,6 +1,6 @@
 .profile-container {
-    max-width: 800px; /* Maximum width for larger screens */
-    margin: auto; /* Center on larger screens */
+    max-width: 800px;
+    margin: auto;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -13,7 +13,7 @@
     }
   
     .profile-picture {
-      width: 100%; /* Responsive picture */
+      width: 100%;
       height: auto;
       border-radius: 50%;
       margin-bottom: 1rem;

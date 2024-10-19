@@ -97,14 +97,14 @@
 
     // Responsive Styles
     @media (max-width: 768px) {
-        margin: 5rem 1rem; // Reduce top margin and add side margin
+        margin: 5rem 1rem;
         padding: 1rem;
 
         .input-area {
-            flex-direction: column; // Stack input and button
+            flex-direction: column;
             button {
-                margin-top: 0.5rem; // Add space between input and button
-                width: 100%; // Full width button
+                margin-top: 0.5rem;
+                width: 100%;
             }
         }
         input{
@@ -116,11 +116,11 @@
         }
         .notes-list {
             .note {
-                flex-direction: column; // Stack progress circle and content
-                align-items: flex-start; // Align items to the start
+                flex-direction: column;
+                align-items: flex-start;
 
                 .progress-circle {
-                    margin-bottom: 0.5rem; // Add space below the circle
+                    margin-bottom: 0.5rem;
                 }
             }
             .note-actions{

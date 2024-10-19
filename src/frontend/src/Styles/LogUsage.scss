@@ -4,33 +4,33 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     width: 100%;
-    max-width: 400px; // Keep max-width for larger screens
+    max-width: 400px;
     margin: 5% auto;
     text-align: left;
 
     @media (max-width: 768px) {
-        padding: 1rem; // Less padding on smaller screens
-        margin: 5% auto; // More margin to give space at the top
-        max-width: 100%; // Allow the container to fill the screen
+        padding: 1rem;
+        margin: 5% auto;
+        max-width: 100%;
     }
 }
 
 .input-title {
     font-size: 2rem;
-    margin: 1.5rem 0; // Increased vertical margin
+    margin: 1.5rem 0;
     color: #5474eb;
     text-align: center;
 
     @media (max-width: 768px) {
-        font-size: 1.5rem; // Responsive title size
-        margin: 4rem 0 2rem 0; // More top margin for mobile
+        font-size: 1.5rem;
+        margin: 4rem 0 2rem 0;
     }
 }
 
 .form-group {
     max-width: 100%;
-    display: flex; // Use flexbox for alignment
-    flex-direction: column; // Stack label and input vertically
+    display: flex;
+    flex-direction: column;
     margin-bottom: 1.5rem;
     text-align: left;
  
@@ -39,12 +39,12 @@
 label {
     display: flex;
     margin-bottom: 0.5rem;
-    font-weight: normal; // Change to normal weight
-    font-size: 0.875rem; // Smaller font size
+    font-weight: normal; 
+    font-size: 0.875rem; 
 
     @media (max-width: 768px) {
         margin-left: -30%;
-        font-size: .8rem; // Smaller font size for mobile
+        font-size: .8rem;
     }
 }
 
@@ -66,11 +66,11 @@ input{
 
 h2 {
     text-align: center;
-    font-size: 1.5rem; // Adjust h2 size
+    font-size: 1.5rem;
     color:#5474eb;
 
     @media (max-width: 768px) {
-        font-size: 1.25rem; // Smaller h2 for mobile
+        font-size: 1.25rem; 
     }
 }
 
@@ -88,7 +88,7 @@ h2 {
   }
 
     @media (max-width: 768px) {
-        padding: 0.6rem; // Slightly less padding on mobile
+        padding: 0.6rem; 
     }
 }
 
@@ -98,7 +98,7 @@ h2 {
     color: #555;
     text-align: center;
     @media (max-width: 768px) {
-        font-size: 0.8rem; // Smaller feedback message for mobile
+        font-size: 0.8rem;
     }
 }
 
