@@ -105,16 +105,16 @@ $background-color: #F0F0F0;
   width: 100%; // Full width of the parent
   height: 100vh;
   text-align: center; // Center text within the container
-  margin-top: 6vh; // Add margin to separate it from the previous content
+  margin-top: 12vh; // Add margin to separate it from the previous content
   min-height: 300px; // Adjust minimum height as desired
 
   // Shelves for Water Bottles
   .shelves {
     display: flex;
-    flex-direction: column; // Align shelves horizontally
-    align-items: flex-start; // Align bottles at the top of the shelf
+    flex-direction: column; // Align shelves vertically
+    align-items: flex-start; // Align shelves at the top
     margin-top: 200px; // Space above the shelves
-    flex-wrap: wrap; // Allow bottles to wrap to the next line if they exceed the width
+    flex-wrap: wrap; // Allow bottles to wrap to the next shelf if they exceed the width
   }
 
   .shelf {
@@ -122,18 +122,18 @@ $background-color: #F0F0F0;
     justify-content: flex-start; // Align bottles to the left within the shelf
     align-items: flex-start; // Align bottles at the top of the shelf
     width: auto; // Change to auto to allow dynamic width
-    height: 20px; // Allow height to adjust based on bottle size
-    margin-bottom: 100px; // Space between shelves
+    height: 10px; // Allow height to adjust based on bottle size
+    margin-bottom: 120px; // Space between shelves
     background-color: white;
-    padding: 5px 0; // Optional: Padding to give some space above and below bottles
+    padding: 10px 0; // Optional: Padding to give some space above and below bottles
   }
 
   .water-bottle {
-    max-width: 150px; // Adjust size as needed
+    max-width: 100px; // Adjust size as needed
     height: auto; // Maintain aspect ratio
-    margin: 0 10px; // Decrease side margin to bring bottles closer
+    margin: 0 -5px; // Decrease side margin to bring bottles closer
     display: block;
-    margin-top: -117px;
+    margin-top: -108px;
     transition: transform 0.3s ease;
 
     &:hover {

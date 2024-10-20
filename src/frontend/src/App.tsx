@@ -182,7 +182,7 @@ const App: React.FC = () => {
         <div className="shelves">
   {shelves.map((_, shelfIndex) => (
     <div className="shelf" key={shelfIndex}>
-      {Array.from({ length: Math.min(bottleCount - shelfIndex * 5, 5) }, (_, index) => (
+      {Array.from({ length: Math.min(bottleCount - shelfIndex * 10, 10) }, (_, index) => (
         <img key={index} src={WaterBottle} alt="Water Bottle" className="water-bottle" />
       ))}
     </div>

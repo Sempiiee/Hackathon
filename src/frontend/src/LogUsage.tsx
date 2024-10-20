@@ -213,8 +213,9 @@ const LogUsage: React.FC = () => {
                         placeholder="Enter number of glasses"
                     />
                 </div>
-                <h2>Household Chores</h2>
+                
                 <div className="form-group">
+                    <h2>Household Chores</h2>
                     <label htmlFor="laundryTime">Laundry (in minutes)</label>
                     <input
                         type="number"
@@ -258,8 +259,9 @@ const LogUsage: React.FC = () => {
                         placeholder="Enter preparation time"
                     />
                 </div>
-                <h2>Other Activities</h2>
+                
                 <div className="form-group">
+                    <h2>Other Activities</h2>
                     <label htmlFor="gardeningTime">Gardening (in minutes)</label>
                     <input
                         type="number"
