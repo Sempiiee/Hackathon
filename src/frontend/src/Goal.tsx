@@ -66,6 +66,12 @@ const Goal: React.FC = () => {
               navigate('/Impact');
           }
     };
+    const handleSignOut = () => {
+        const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+        if (confirmSignOut) {
+          navigate('/LogIn');
+        }
+      };
     const [isMenuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => {
       setMenuOpen(prev => !prev);
@@ -113,7 +119,7 @@ const Goal: React.FC = () => {
                     {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-                        <div className="tab" onClick={() => navigate('/LogIn')}>Sign Out</div>
+                        <div className="tab" onClick={handleSignOut}>Sign Out</div>
                     </div>
                     )}
             </header>
@@ -125,7 +131,7 @@ const Goal: React.FC = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Add a goal..."
                 />
-                <button onClick={handleAddOrUpdate}>{editId !== null ? 'Update' : 'Add'}</button>
+                <button type = "submit" onClick={handleAddOrUpdate}>{editId !== null ? 'Update' : 'Add'}</button>
             </div>
             <div className="notes-list">
                 {notes.map(note => (

@@ -24,6 +24,12 @@ const Impact: React.FC = () => {
               navigate('/Impact');
           }
     };
+    const handleSignOut = () => {
+        const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+        if (confirmSignOut) {
+          navigate('/LogIn');
+        }
+      };
     const [isMenuOpen, setMenuOpen] = useState(false);
     const toggleMenu = () => {
       setMenuOpen(prev => !prev);
@@ -34,7 +40,7 @@ const Impact: React.FC = () => {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     return (
-        <div className="app-container">
+        <div className="article-container">
                 <header className="top-bar">
                 {/* Hamburger Menu Button */}
                 <div className="menu-button" onClick={toggleMenu}>
@@ -70,7 +76,7 @@ const Impact: React.FC = () => {
                     {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-                        <div className="tab" onClick={() => navigate('/LogIn')}>Sign Out</div>
+                        <div className="tab" onClick={handleSignOut}>Sign Out</div>
                     </div>
                     )}
             </header>
@@ -78,20 +84,20 @@ const Impact: React.FC = () => {
         <main className="main-content">
         {activeTab === "Impact" && (
                 <div>
-                    <h2 className="article-header">Impact of Your Water Usage</h2> 
+                    <h2 className="titleForActivetab">Impact of Your Water Usage</h2> 
                     <div className="article-container">
                     <header className="article-header">
-                        <h1>Water and Sanitation Issues in the Philippines</h1>
+                        <h2  className="article-content">Water and Sanitation Issues in the Philippines</h2>
                     </header>
                     <section className="article-content">
-                        <p>With a population of 113 million people, access to safe water in the Philippines is challenge for a significant proportion of the population. 
+                        <p className="article-content">With a population of 113 million people, access to safe water in the Philippines is challenge for a significant proportion of the population. 
                         According to UN and UNICEF data, 53% of households in the Philippines lack access to a safely managed water supply and 39% lack safe sanitation. 
                         The situation in schools is even more serious, with 55% of schools lacking access to a safely managed water supply and 26% lacking safe sanitation.</p>
-                        <div className="article-header">
-                            <img src={WaterUse} alt="Water Drop Logo" />
+                        <div className="article-content">
+                            <img className = "article-image" src={WaterUse} alt="Water Drop Logo" />
                             <h6 className="author-date">https://images.app.goo.gl/i9MJmZG7Y8oucuc69</h6>
                         </div>
-                        <h2 className="article-header">Water pollution and overuse in the Philippines</h2>
+                        <h2 className="article-content">Water pollution and overuse in the Philippines</h2>
                         <p>Water pollution in the Philippines has far-reaching consequences. Health impacts are severe, 
                         with waterborne diseases being common in areas with poor water quality. 
                         They are among the country’s top 10 factors leading to disease and death.

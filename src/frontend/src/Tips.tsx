@@ -29,6 +29,12 @@ const Tips: React.FC = () => {
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
     };
+    const handleSignOut = () => {
+      const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+      if (confirmSignOut) {
+        navigate('/LogIn');
+      }
+    };
 
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const toggleDropdown = () => {
@@ -36,7 +42,7 @@ const Tips: React.FC = () => {
     };
 
     return (
-        <div className="app-container">
+        <div className="article-container">
             <header className="top-bar">
                 <div className="menu-button" onClick={toggleMenu}>
                     <div></div>
@@ -68,7 +74,7 @@ const Tips: React.FC = () => {
                 {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-                        <div className="tab" onClick={() => navigate('/LogIn')}>Sign Out</div>
+                        <div className="tab" onClick={handleSignOut}>Sign Out</div>
                     </div>
                 )}
             </header>

@@ -52,6 +52,13 @@ const Profile = () => {
     setDropdownOpen(prev => !prev);
   };
 
+  const handleSignOut = () => {
+    const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+    if (confirmSignOut) {
+      navigate('/LogIn');
+    }
+  };
+
   return (
     <div className="profile-container">
          <header className="top-bar">
@@ -90,7 +97,7 @@ const Profile = () => {
         {isDropdownOpen && (
           <div className="dropdown-menu open">
             <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-            <div className="tab" onClick={() => navigate('/LogIn')}>Sign Out</div>
+            <div className="tab" onClick={handleSignOut}>Sign Out</div>
           </div>
         )}
       </header>

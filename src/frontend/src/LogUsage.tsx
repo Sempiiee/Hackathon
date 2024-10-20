@@ -93,6 +93,12 @@ const LogUsage: React.FC = () => {
         setPetCareTime('');
         setCarWashingTime('');
     };
+    const handleSignOut = () => {
+        const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+        if (confirmSignOut) {
+          navigate('/LogIn');
+        }
+      };
 
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
@@ -155,7 +161,7 @@ const LogUsage: React.FC = () => {
                     {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-                        <div className="tab" onClick={() => navigate('/LogIn')}>Sign Out</div>
+                        <div className="tab" onClick={handleSignOut}>Sign Out</div>
                     </div>
                     )}
             </header>

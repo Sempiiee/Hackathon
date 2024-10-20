@@ -7,6 +7,7 @@ interface LoginProps {
   setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
+
 const LogIn: React.FC<LoginProps> = ({ setLoggedIn, setEmail }) => {
   const [activeTab, setActiveTab] = useState<string>("Log In");
   const [email, updateEmail] = useState<string>('');
@@ -39,7 +40,6 @@ const LogIn: React.FC<LoginProps> = ({ setLoggedIn, setEmail }) => {
       setPasswordError('The password must be 8 characters or longer');
       isValid = false;
     }
-
     return isValid;
   };
 
