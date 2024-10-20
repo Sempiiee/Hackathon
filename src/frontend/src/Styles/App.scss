@@ -114,6 +114,7 @@ $background-color: #F0F0F0;
     flex-direction: column; // Align shelves vertically
     align-items: flex-start; // Align shelves at the top
     margin-top: 200px; // Space above the shelves
+    margin-left: -20px;
     flex-wrap: wrap; // Allow bottles to wrap to the next shelf if they exceed the width
   }
 
@@ -126,18 +127,27 @@ $background-color: #F0F0F0;
     margin-bottom: 120px; // Space between shelves
     background-color: white;
     padding: 10px 0; // Optional: Padding to give some space above and below bottles
+    transition: transform 0.3s ease;
+    transform-origin: left;
+    border-radius: 0 4px 4px 0;
+
+    &:hover {
+      transform: scale(1.05); // Scale the shelf on hover (adjust the scale as needed)
+      z-index: 10; // Bring hovered shelf to the front
+  }
   }
 
   .water-bottle {
     max-width: 100px; // Adjust size as needed
     height: auto; // Maintain aspect ratio
-    margin: 0 -5px; // Decrease side margin to bring bottles closer
-    display: block;
+    margin: 0 -25px; // Decrease side margin to bring bottles closer
+    display: inline-block;
     margin-top: -108px;
     transition: transform 0.3s ease;
+    transform-origin: bottom;
 
     &:hover {
-      transform: scale(1.2); // Scale up the bottle on hover (adjust the scale as needed)
+      transform: scale(1.1); // Scale up the bottle on hover (adjust the scale as needed)
       z-index: 10; // Bring hovered bottle to the front
     }
   }
@@ -169,6 +179,14 @@ $background-color: #F0F0F0;
     color: #000; // Text color
     text-align: right;
     font-weight: 450;
+    margin-top: 3vh;
+    transition: transform 0.3s ease;
+    transform-origin: right;
+
+    &:hover {
+      transform: scale(1.075); // Scale the shelf on hover (adjust the scale as needed)
+      z-index: 10; // Bring hovered shelf to the front
+  }
   }
 }
 

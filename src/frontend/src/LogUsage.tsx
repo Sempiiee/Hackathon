@@ -209,7 +209,6 @@ const LogUsage: React.FC = () => {
                         name="drinkingWater"
                         value={drinkingWater}
                         onChange={handleInputChange}
-                        required
                         placeholder="Enter number of glasses"
                     />
                 </div>
