@@ -12,6 +12,7 @@ const Profile = () => {
     password: '123456789',
     picture: '',
   });
+  
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>("Profile");
   const [isEditing, setIsEditing] = useState(false);

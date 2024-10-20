@@ -1,237 +1,219 @@
+// Existing SCSS imports
 @import './TopBar.scss';
 
-// Variables
-$primary-color: #00BFFF; // Light blue for the theme
-$secondary-color: #F0F0F0; // Light gray background
-$font-family: 'Arial', sans-serif;
+$top-bar-height: 60px;
+$background-color: #F0F0F0;
 
-// Global styles
-* {
-  box-sizing: border-box; // Ensure padding and borders are included in element's total width and height
-}
-
-body {
-  margin: 0; 
-  font-family: $font-family; 
-  background-color: $secondary-color; // Set background color
-}
-
-// App container
 .app-container {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  align-items: center;
-  padding: 20px; // Padding around the container
-  //background-color: red;
+  height: 200vh; // Full height of the viewport
+  position: relative;
+  background-color: $background-color;
 }
 
-// Content wrapper
 .content-wrapper {
-  display: flex; 
-  justify-content: center; 
-  align-items: flex-start; 
-}
-
-.content-wrapper::after {
-  content: '';
-  display: table;
-  clear: both;
-}
-
-.right-side {
-  float: right; // Float the right-side div
-  width: auto; // Adjust width as needed
-  margin-left: auto; // Optional: ensure it's aligned correctly within its container
-}
-
-// Main content
-.main-content {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%; 
-  overflow: hidden;
+  flex-direction: column; // Keep it column to stack sections
+  flex: 1; // Takes the remaining height
+  justify-content: center; // Center vertically
+  align-items: center; // Center horizontally
+  position: relative; // Allows absolute positioning of child elements
+  height: calc(100% - #{$top-bar-height}); // Ensure it takes full height minus top bar
+}
 
-  .overview-section {
+.gallon-image {
+  position: absolute; // Absolutely position images for layering
+  max-width: 40vw; // Use a smaller max-width to maintain visibility
+  height: auto; // Maintain aspect ratio
+  max-height: 40vw; // Maintain a maximum height to avoid small sizes
+  min-width: 200px; // Minimum width to prevent too small sizes
+  min-height: 250px; // Minimum height to prevent too small sizes
+}
+
+.filled {
+  z-index: 3; // Bring filled image to the front
+}
+
+.empty {
+  z-index: 2; // Layer empty image behind filled
+}
+
+.main {
+  z-index: 1; // Layer main image behind empty
+}
+
+.gallon-section {
+  position: relative; // Allow for layering of images
+  display: flex; // Use flex for proper centering
+  justify-content: center; // Center images horizontally
+  align-items: center; // Center images vertically
+  height: 60vh; // Set a maximum height for the section
+  top: 20vh;
+
+  .gallon-image {
+    transition: transform 0.3s ease; // Smooth transition for both scaling up and down
+  }
+
+  &:hover {
+    .gallon-image {
+      transform: scale(1.1); // Scale up by 10%
+    }
+  }
+}
+
+.scroll-section {
+  text-align: center; // Center align text
+  margin-top: 25vh; // Space above the scroll section
+}
+
+.scroll-text {
+  color: darkgrey; // Text color
+  font-size: 1.2rem; // Font size
+  text-align: center; // Center text
+}
+
+.arrow-container {
+  margin-top: -3vh; // Space between text and arrows
+}
+
+.arrow-image {
+  width: 80px; // Adjust size for the arrows
+  height: auto; // Maintain aspect ratio
+}
+
+.add-bottle-button {
+  background-color: #007BFF; // Button color
+  color: white; // Text color
+  border: none; // No border
+  padding: 10px 20px; // Padding
+  border-radius: 5px; // Rounded corners
+  cursor: pointer; // Cursor pointer
+  margin: 20px 0; // Margin for spacing
+  font-size: 1rem; // Font size
+  transition: background-color 0.3s; // Transition for hover effect
+
+  &:hover {
+    background-color: #0056b3; // Darker color on hover
+  }
+}
+
+.equivalent-section {
+  position: relative; // Positioning relative to the app-container
+  padding: 20px; // Padding for spacing
+  background-color: lightblue; // Change this to your desired background color
+  width: 100%; // Full width of the parent
+  height: 100vh;
+  text-align: center; // Center text within the container
+  margin-top: 6vh; // Add margin to separate it from the previous content
+  min-height: 300px; // Adjust minimum height as desired
+
+  // Shelves for Water Bottles
+  .shelves {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50%;
+    flex-direction: column; // Align shelves horizontally
+    align-items: flex-start; // Align bottles at the top of the shelf
+    margin-top: 200px; // Space above the shelves
+    flex-wrap: wrap; // Allow bottles to wrap to the next line if they exceed the width
+  }
 
-    .gallon-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative; 
-      margin-top: 28%; 
-      width: 100%;
-      padding: 0; 
-      flex: 1;
-      
-
-      // Apply hover effect to the parent container
-      &:hover {
-          .gallon-image,
-          .gallon-empty-image,
-          .gallon-filled-image {
-              transform: scale(1.15); // Scale up to 115%
-              transition: transform 0.3s ease; // Smooth transition
-          }
-      }
-
-      .gallon-image,
-      .gallon-empty-image,
-      .gallon-filled-image {
-        position: absolute; 
-        width: 100%; 
-        height: auto; 
-        max-height: 70vh; 
-        transition: transform 0.3s ease; // Smooth transition for both scaling up and down
-      }
-      
-      .gallon-image {
-          z-index: 0; 
-      }
-      
-      .gallon-empty-image {
-          z-index: 1; 
-      }
-      
-      .gallon-filled-image {
-          z-index: 2; 
-      }
-
-      
-      @media (max-width: 1300px) {
-        .gallon-section {
-          justify-content: center;
-          margin-top: -50px; /* Adjust margin for mobile */
-          padding: 0 5%; /* Add padding to center on smaller screens */
-        }
-      
-        .gallon-image,
-        .gallon-empty-image,
-        .gallon-filled-image {
-          width: 100%; /* Responsive width for mobile */
-          max-width: 3000px; /* Set a max width for better control */
-        }
-      }
-    }
-
-    .water-bottle-images {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative; 
-      width: auto; 
-      
-      .water-image {
-        width: 500px; 
-        height: auto; 
-        object-fit: cover; 
-      }
-    }
-  }  
-
-  .bottle-tracking-section {
+  .shelf {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 500px; 
-    flex: 1;
+    justify-content: flex-start; // Align bottles to the left within the shelf
+    align-items: flex-start; // Align bottles at the top of the shelf
+    width: auto; // Change to auto to allow dynamic width
+    height: 20px; // Allow height to adjust based on bottle size
+    margin-bottom: 100px; // Space between shelves
+    background-color: white;
+    padding: 5px 0; // Optional: Padding to give some space above and below bottles
+  }
 
-    h2 {
-      margin: 10px 0;
-      color: $primary-color;
-    }
+  .water-bottle {
+    max-width: 150px; // Adjust size as needed
+    height: auto; // Maintain aspect ratio
+    margin: 0 10px; // Decrease side margin to bring bottles closer
+    display: block;
+    margin-top: -117px;
+    transition: transform 0.3s ease;
 
-    .add-bottle-button {
-      background-color: $primary-color;
-      color: white;
-      border: none; 
-      border-radius: 5px; 
-      padding: 10px 15px; 
-      cursor: pointer; 
-      margin-top: 150%; 
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: darken($primary-color, 10%); 
-      }
-    }
-
-    .bottle-list {
-      display: flex;
-      flex-wrap: wrap; 
-      justify-content: center; 
-      margin-top: 10px; 
-    }
-
-    .bottle-image {
-      width: 50px; 
-      margin: 5px; 
+    &:hover {
+      transform: scale(1.2); // Scale up the bottle on hover (adjust the scale as needed)
+      z-index: 10; // Bring hovered bottle to the front
     }
   }
 
-  .scroll-indicator {
+  // Message Bubbles Container
+  .message-bubbles-container {
+    position: absolute; // Position relative to the nearest positioned ancestor
+    right: 20px; // Distance from the right side
+    top: 23vh; // Adjust this value to move bubbles closer to the top
+    z-index: 1000; // Ensure it's above other elements
+  }
+
+  .message-bubbles {
     display: flex;
-    flex-direction: column; // Stack text and arrows vertically
-    align-items: center; // Center horizontally
-    justify-content: center; // Center vertically
-    margin-top: -190%; // Adjust space above the section
-    margin-left: 0%; // Adjust margin from the left
+    flex-direction: column; // Align messages in a column
+    align-items: flex-end; // Align all messages to the right
+  }
 
-    .scroll-text {
-      color: darkgrey; // Text color
-      margin-bottom: -5%; // Space below the text
-      font-size: 1.2rem; // Font size
-      text-align: center; // Center text
-    }
+  .message-bubble {
+    display: inline-block; // Inline block for better sizing
+    padding: 15px 30px 15px 0px; // Increased padding for a larger message box
+    border-radius: 20px; // Rounded corners
+    max-width: 80%; // Limit width to 80% of the container
+    margin: 10px 0; // Vertical margin only
+    position: relative; // For arrow positioning
+    font-size: 1.2rem; // Increased font size
+    line-height: 1.4;
+    background-color: #ffffff; // Background color for user messages
+    color: #000; // Text color
+    text-align: right;
+    font-weight: 450;
+  }
+}
 
-    .arrow-container {
-      display: flex; // Flexbox to align arrows
-      justify-content: center; // Center arrows horizontally
-      margin-top: -10px; // Space above arrows
-      transition: 1s;
+// Media Queries
+@media(max-width: 1300px) {
+  .gallon-image {
+    max-width: 60vw; // Increase size for medium-large screens
+    max-height: 65vh; // Adjust max-height
+  }
+}
 
-      img {
-        width: 30%; // Adjust width as needed
-        height: auto; // Maintain aspect ratio
+@media (max-width: 768px) { // Tablet and below
+  .gallon-image {
+    max-width: 70vw; // Increase size relative to viewport width
+    max-height: 80vh; // Adjust max-height for better visibility
+  }
 
-        // Hide the gif initially
-        &.static {
-          display: block; // Show the static image by default
-        }
+  .gallon-section {
+    top: 17vh;
+  }
 
-        &.bouncing {
-          display: none; // Hide the bouncing gif initially
-        }
-      }
+  .scroll-section {
+    margin-top: 30vh; // Space above the scroll section
+  }
 
-      &:hover {
-        img.static {
-          display: none; // Hide static image on hover
-        }
+  .equivalent-section {
+    margin-top: 5vh; // Add margin to separate it from the previous content
+  }
+}
 
-        img.bouncing {
-          display: block; // Show bouncing gif on hover
-        }
-      }
-    }
+@media (max-width: 480px) { // Mobile phones
+  .gallon-image {
+    max-width: 80vw; // Further increase size for smaller screens
+    max-height: 70vh; // Adjust max-height for better visibility
+  }
 
-    @media (max-width: 1300px) {
-      margin-top: -175%; // Adjust margin for smaller screens
-      margin-left: 0%; // Adjust margin from the left
-  
-      .scroll-text {
-        font-size: 1rem; // Reduce font size for mobile
-      }
-  
-      .arrow-container img {
-        width: 50%; // Increase size of arrows on mobile
-      }
-    }
+  .gallon-section {
+    top: 13vh;
+  }
+
+  .scroll-section {
+    margin-top: 15vh; // Space above the scroll section
+  }
+
+  .equivalent-section {
+    margin-top: 12%; // Add margin to separate it from the previous content
   }
 }

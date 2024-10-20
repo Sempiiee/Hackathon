@@ -8,11 +8,22 @@
     margin: 5% auto;
     text-align: left;
 
+
+    @media (max-width: 1300px) {
+      padding: 1rem;
+      margin: 5%;
+      max-width: 100%;
+  }
     @media (max-width: 768px) {
         padding: 1rem;
-        margin: 5% auto;
-        max-width: 100%;
+        margin: 5%;
+        max-width: 90%;
     }
+    @media (max-width: 480px) {
+      padding: 1rem;
+      margin: 5%;
+      max-width: 90%;
+  }
 }
 
 .input-title {
@@ -43,9 +54,13 @@ label {
     font-size: 0.875rem; 
 
     @media (max-width: 768px) {
-        margin-left: -30%;
         font-size: .8rem;
     }
+
+    @media (max-width: 480px) {
+      margin-left: -30%;
+      font-size: .8rem;
+  }
 }
 
 input{
@@ -58,9 +73,14 @@ input{
 
     @media (max-width: 768px){
         padding: 0.4rem;
-        margin-left: -30%;
         font-size: 1rem;
         min-width: fit-content;
+    }
+    @media(max-width: 480px){
+      padding: 0.4rem;
+      margin-left: -30%;
+      font-size: 1rem;
+      min-width: fit-content;
     }
 }
 

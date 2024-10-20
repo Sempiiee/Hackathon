@@ -1,7 +1,6 @@
 // App.tsx
 
 import React, { useState, useRef } from "react";
-import TopBar from './Styles/TopBar.scss';
 import "./Styles/App.scss";
 import "./Styles/ActiveTab.scss";
 import "./Styles/MessageBubble.scss";
@@ -17,14 +16,13 @@ import WaterdropLogo from "../public/Waterdrop_Logo.png";
 const App: React.FC = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>("Overview");
-  const [bottlesUsed, setBottlesUsed] = useState<number[]>([]);
-  const bottleTrackingRef = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
-  const addBottle = () => {
-    setBottlesUsed([...bottlesUsed, bottlesUsed.length + 1]);
-  };
+  
+  // Create a ref for the equivalent section
+  const equivalentSectionRef = useRef<HTMLDivElement>(null);
+  const [bottleCount, setBottleCount] = useState<number>(0); // State to track the number of bottles
+  const [shelves, setShelves] = useState<number[]>([0]); // State to track the number of shelves
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -49,18 +47,40 @@ const App: React.FC = () => {
     setDropdownOpen(prev => !prev);
   };
 
-  const handleGallonClick = () => {
-    if (bottleTrackingRef.current) {
-      const offset = -200; // Adjust this value to change the scroll offset
-      const elementPosition = bottleTrackingRef.current.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+  const handleSignOut = () => {
+    const confirmSignOut = window.confirm("Are you sure you want to sign out?");
+    if (confirmSignOut) {
+      navigate('/LogIn');
     }
   };
+
+  const handleGallonClick = () => {
+    // Scroll to the equivalent section
+    if (equivalentSectionRef.current) {
+      equivalentSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Function to add a water bottle
+  const addBottle = () => {
+    setBottleCount((prevCount) => {
+      const newCount = prevCount + 1;
+      // Update shelves based on bottle count
+      const newShelves = Math.floor(newCount / 5);
+      setShelves(Array.from({ length: newShelves + 1 }, (_, i) => i));
+      return newCount;
+    });
+  };
+
+  // Sample messages for the message bubbles with styled text
+  const messages = [
+    <div key={1}>
+      You are averaging <span style={{ color: 'blue' }}>1.3 gallons</span> of water daily!
+    </div>,
+    <div key={2}>
+      That is equivalent to <span style={{ color: 'rgb(121, 176, 37)' }}>14</span> <span style={{ color: 'blue' }}>350ml</span> bottles of water.
+    </div>
+  ];
 
   return (
     <div className="app-container">
@@ -100,52 +120,75 @@ const App: React.FC = () => {
         {isDropdownOpen && (
           <div className="dropdown-menu open">
             <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-            <div className="tab" onClick={() => navigate('/LogIn')}>Sign Out</div>
+            <div className="tab" onClick={handleSignOut}>Sign Out</div>
           </div>
         )}
       </header>
 
       <div className="content-wrapper">
-        <main className="main-content">
-          {activeTab === "Overview" && (
-            <div className="overview-section">
-              <div className="gallon-section" onClick={handleGallonClick}>
-                <img src={WaterGallonMain} alt="Water Gallon" className="gallon-image" />
-                <img src={WaterGallonEmpty} alt="Water Gallon Empty" className="gallon-empty-image" />
-                <img src={WaterGallonFilled} alt="Water Gallon Filled" className="gallon-filled-image" />
-              </div>
+        {/* Gallon images layered on top of each other */}
+        <div className="gallon-section" onClick={handleGallonClick}>
+          <img
+            src={WaterGallonFilled}
+            alt="Water Gallon Filled"
+            className="gallon-image filled"
+          />
+          <img
+            src={WaterGallonEmpty}
+            alt="Water Gallon Empty"
+            className="gallon-image empty"
+          />
+          <img
+            src={WaterGallonMain}
+            alt="Water Gallon"
+            className="gallon-image main"
+          />
+        </div>
 
-              <div className="bottle-tracking-section" ref={bottleTrackingRef}>
-                <button className="add-bottle-button" onClick={addBottle}>Add Bottle</button>
-                <div className="bottle-list">
-                  {bottlesUsed.map((_, index) => (
-                    <img key={index} src={WaterBottle} alt={`Bottle ${index + 1}`} className="bottle-image" />
-                  ))}
-                </div>
-
-                <div className="scroll-indicator">
-                  <p className="scroll-text">Scroll down to see your statistics</p>
-                  <div className="arrow-container">
-                    <img src={StaticArrows} alt="Static Arrows" className="static" />
-                    <img src={BouncingArrows} alt="Bouncing Arrows" className="bouncing" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </main>
-
-        {/* New Div for Message Bubbles */}
-        <div className="message-bubbles-container">
-          <div className="message-bubbles">
-            <div className="message-bubble">
-              You are averaging <span style={{ color: 'blue' }}>1.3 gallons</span> of water daily!
-            </div>
-            <div className="message-bubble">
-              That is equivalent to <span style={{ color: 'green' }}>14</span> <span style={{ color: 'blue' }}>350ml</span> bottles of water.
-            </div>
+        {/* Scroll Section at the Bottom of the Container */}
+        <div className="scroll-section">
+          <p className="scroll-text">Scroll down to see your statistics</p>
+          <div className="arrow-container">
+            <img
+              src={StaticArrows}
+              alt="Static Arrows"
+              className="arrow-image"
+              onMouseOver={(e) => (e.currentTarget.src = BouncingArrows)}
+              onMouseOut={(e) => (e.currentTarget.src = StaticArrows)}
+            />
           </div>
         </div>
+      </div>
+
+      {/* New Container Outside the Current Content Wrapper */}
+      <div className="equivalent-section" ref={equivalentSectionRef}>
+        {/* Message Bubbles Container */}
+        <div className="message-bubbles-container">
+          <div className="message-bubbles">
+            {messages.map((message, index) => (
+              <div key={index} className="message-bubble">
+                {message}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Button to add water bottle */}
+        <button className="add-bottle-button" onClick={addBottle}>
+          Add Water Bottle
+        </button>
+
+        {/* Bottles on Shelves */}
+        <div className="shelves">
+  {shelves.map((_, shelfIndex) => (
+    <div className="shelf" key={shelfIndex}>
+      {Array.from({ length: Math.min(bottleCount - shelfIndex * 5, 5) }, (_, index) => (
+        <img key={index} src={WaterBottle} alt="Water Bottle" className="water-bottle" />
+      ))}
+    </div>
+  ))}
+</div>
+
       </div>
     </div>
   );
