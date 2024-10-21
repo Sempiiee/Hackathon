@@ -1,6 +1,4 @@
-// App.tsx
-
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Styles/App.scss";
 import "./Styles/ActiveTab.scss";
 import "./Styles/MessageBubble.scss";
@@ -18,18 +16,21 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>("Overview");
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  
-  // Create a ref for the equivalent section
+
   const equivalentSectionRef = useRef<HTMLDivElement>(null);
-  const [bottleCount, setBottleCount] = useState<number>(0); // State to track the number of bottles
-  const [shelves, setShelves] = useState<number[]>([0]); // State to track the number of shelves
+  const bottleShelfWrapperRef = useRef<HTMLDivElement>(null);
+  const messageBubblesRef = useRef<HTMLDivElement>(null);
+
+  const [bottleCount, setBottleCount] = useState<number>(0);
+  const [shelves, setShelves] = useState<number[]>([0]);
+  const [waterConsumption, setWaterConsumption] = useState<number>(0.8); // State to track water consumption
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
     if (tab === "Log Usage") {
-      navigate('/LogUsage'); 
+      navigate('/LogUsage');
     } else if (tab === "Tips & Advice") {
-      navigate('/Tips'); 
+      navigate('/Tips');
     } else if (tab === "Overview") {
       navigate('/App');
     } else if (tab === "Goals") {
@@ -55,37 +56,53 @@ const App: React.FC = () => {
   };
 
   const handleGallonClick = () => {
-    // Scroll to the equivalent section
     if (equivalentSectionRef.current) {
       equivalentSectionRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  // Function to add a water bottle
+  const bottlesPerShelf = () => {
+    return window.innerWidth <= 1300 ? 7 : 10; 
+  };
+
   const addBottle = () => {
     setBottleCount((prevCount) => {
       const newCount = prevCount + 1;
-      // Update shelves based on bottle count
-      const newShelves = Math.floor(newCount / 5);
+      const newShelves = Math.floor(newCount / bottlesPerShelf());
       setShelves(Array.from({ length: newShelves + 1 }, (_, i) => i));
       return newCount;
     });
   };
 
-  // Sample messages for the message bubbles with styled text
   const messages = [
     <div key={1}>
       You are averaging <span style={{ color: 'blue' }}>1.3 gallons</span> of water daily!
     </div>,
     <div key={2}>
-      That is equivalent to <span style={{ color: 'rgb(121, 176, 37)' }}>14</span> <span style={{ color: 'blue' }}>350ml</span> bottles of water.
+      That is equivalent to <span style={{ color: 'rgb(121, 176, 37)', fontWeight: 500 }}>{bottleCount}</span>
+      <span style={{ color: 'blue' }}> 350ml</span> bottles of water.
     </div>
   ];
+
+  useEffect(() => {
+    const adjustBottlePosition = () => {
+      if (messageBubblesRef.current && bottleShelfWrapperRef.current) {
+        const bubbleHeight = messageBubblesRef.current.offsetHeight;
+        bottleShelfWrapperRef.current.style.marginTop = `${bubbleHeight + 20}px`;
+      }
+    };
+
+    adjustBottlePosition();
+    window.addEventListener('resize', adjustBottlePosition);
+
+    return () => {
+      window.removeEventListener('resize', adjustBottlePosition);
+    };
+  }, [bottleCount]);
 
   return (
     <div className="app-container">
       <header className="top-bar">
-        {/* Hamburger Menu Button */}
         <div className={`menu-button ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
           <div></div>
           <div></div>
@@ -104,7 +121,7 @@ const App: React.FC = () => {
               className={`tab ${activeTab === tab ? "active" : ""}`}
               onClick={() => {
                 handleTabClick(tab);
-                setMenuOpen(false); // Close menu on tab click
+                setMenuOpen(false);
               }}
             >
               {tab}
@@ -126,7 +143,6 @@ const App: React.FC = () => {
       </header>
 
       <div className="content-wrapper">
-        {/* Gallon images layered on top of each other */}
         <div className="gallon-section" onClick={handleGallonClick}>
           <img
             src={WaterGallonFilled}
@@ -143,9 +159,14 @@ const App: React.FC = () => {
             alt="Water Gallon"
             className="gallon-image main"
           />
+          
+          {/* Add water consumption text here */}
+          <div className="water-consumption-text">
+            <span className="big-number">{waterConsumption}</span>
+            <span className="unit"> gal</span>
+          </div>
         </div>
 
-        {/* Scroll Section at the Bottom of the Container */}
         <div className="scroll-section">
           <p className="scroll-text">Scroll down to see your statistics</p>
           <div className="arrow-container">
@@ -160,10 +181,8 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* New Container Outside the Current Content Wrapper */}
       <div className="equivalent-section" ref={equivalentSectionRef}>
-        {/* Message Bubbles Container */}
-        <div className="message-bubbles-container">
+        <div className="message-bubbles-container" ref={messageBubblesRef}>
           <div className="message-bubbles">
             {messages.map((message, index) => (
               <div key={index} className="message-bubble">
@@ -173,22 +192,21 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Button to add water bottle */}
         <button className="add-bottle-button" onClick={addBottle}>
           Add Water Bottle
         </button>
 
-        {/* Bottles on Shelves */}
-        <div className="shelves">
-  {shelves.map((_, shelfIndex) => (
-    <div className="shelf" key={shelfIndex}>
-      {Array.from({ length: Math.min(bottleCount - shelfIndex * 10, 10) }, (_, index) => (
-        <img key={index} src={WaterBottle} alt="Water Bottle" className="water-bottle" />
-      ))}
-    </div>
-  ))}
-</div>
-
+        <div className="bottle-shelf-wrapper" ref={bottleShelfWrapperRef}>
+          <div className="shelves">
+            {shelves.map((_, shelfIndex) => (
+              <div className="shelf" key={shelfIndex}>
+                {Array.from({ length: Math.min(bottleCount - shelfIndex * bottlesPerShelf(), bottlesPerShelf()) }, (_, index) => (
+                  <img key={index} src={WaterBottle} alt="Water Bottle" className="water-bottle" />
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
