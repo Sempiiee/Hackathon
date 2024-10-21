@@ -3,6 +3,7 @@ import "./Styles/ActiveTab.scss";
 import { useNavigate } from 'react-router-dom';
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import WaterUse from "../public/test.png";
+import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 const Impact: React.FC = () => {
     const [usage, setUsage] = useState<number | ''>('');
     const [activeTab, setActiveTab] = useState<string>("Impact");

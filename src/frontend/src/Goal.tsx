@@ -3,6 +3,7 @@ import "./Styles/ActiveTab.scss";
 import "./Styles/Goal.scss";
 import { useNavigate } from 'react-router-dom';
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
+import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 interface Note {
     id: number;
@@ -64,6 +65,8 @@ const Goal: React.FC = () => {
           }
           else if (tab === "Impact") {
               navigate('/Impact');
+          }else if(tab === "Leaderboard"){
+            navigate('/LeaderBoards');
           }
     };
     const handleSignOut = () => {

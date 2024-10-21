@@ -7,7 +7,7 @@ import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 const LeaderBoards: React.FC = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<string>("Leaderboards");
+    const [activeTab, setActiveTab] = useState<string>("Leaderboard");
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [waterStats, setWaterStats] = useState<number[]>([]);
@@ -112,13 +112,13 @@ const LeaderBoards: React.FC = () => {
 
                 <div className="leaderboard-button-container">
                 <button 
-                  className={`leaderboard-button ${activeTab === 'leaderboards' ? 'active' : ''}`} 
+                  className={`leaderboard-button ${activeTab === 'Leaaderboard' ? 'active' : ''}`} 
                   onClick={() => {
                     handleTabClick('Leaderboard');
                     setMenuOpen(false);
                   }}
                 >
-                  <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" />
+                  <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" style={{opacity: activeTab === 'Leaderboard' ? 1 : 0.6 }} />
                 </button>
               </div>    
 
