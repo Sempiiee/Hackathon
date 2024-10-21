@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "./index.scss";
 import "./Styles/Profile.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
+import UserIcon from "../public/User_Icon.png";
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -103,7 +104,7 @@ const Profile = () => {
         )}
       </header>
       <h2 className="profile-title">User Profile</h2>
-      <img src={user.picture || WaterdropLogo} alt="Profile" className="profile-picture" />
+      <img src={UserIcon} alt="Profile" className="profile-picture" />
       
       {isEditing ? (
         <form onSubmit={handleSubmit} className="profile-form">

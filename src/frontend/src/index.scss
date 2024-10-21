@@ -2,8 +2,8 @@
 
 .mainContainer {
   max-width: 100%;
-  margin-top: 10%; 
-  padding: 1rem; 
+  margin-top: 10%;
+  padding: 1rem;
   position: relative;
   background-color: transparent;
   display: flex;
@@ -27,23 +27,21 @@ input[type='submit'] {
   }
 }
 
+// Input Container Styling
 .inputContainer {
-  margin-bottom: .1rem;
+  margin-bottom: 0.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
-   
 }
 
 .inputBox {
-  max-width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
-  margin-left: 0;
   width: 30%;
 }
 
@@ -67,10 +65,9 @@ input[type='submit'] {
   }
 }
 
-.homeTitle{
-  color:#5474eb;
+.homeTitle {
+  color: #5474eb;
 }
-
 
 .errorLabel {
   color: red;
@@ -83,14 +80,10 @@ input[type='submit'] {
   margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 1rem;
-  }
-
-  .inputContainer{
+// Media Queries for Responsiveness
+@media (max-width: 1300px) {
+  .inputContainer {
     padding-left: 20.5%;
-
   }
 
   .inputBox {
@@ -99,8 +92,46 @@ input[type='submit'] {
     max-width: 100%;
     margin-left: -25%;
     min-width: fit-content;
-    width: 40%;
+    width: 90%;
   }
+
+  input[type='submit'] {
+    width: 650px;
+    margin-left: 0%;
+    margin-bottom: 20px;
+  }
+
+  .inputBoxSelect {
+    font-size: 0.9rem;
+    margin-left: -25%;
+    width: 90%;
+  }
+
+  .signUp {
+    margin-left: -25%;
+  }
+
+  .titleContainer {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .inputContainer {
+    padding-left: 20.5%;
+  }
+
+  .inputBox {
+    margin-left: 0;
+    font-size: 0.9rem;
+    max-width: 100%;
+    margin-left: -25%;
+    width: 80%;
+  }
+
   input[type='submit'] {
     width: 210px;
     margin-left: 0%;
@@ -108,17 +139,14 @@ input[type='submit'] {
   }
 
   .inputBoxSelect {
-    margin-left: 0;
     font-size: 0.9rem;
-    max-width: 100%;
     margin-left: -25%;
-    width: 90%; 
+    width: 90%;
   }
 
-  .signUp{
+  .signUp {
     margin-left: -30%;
   }
-
 
   .titleContainer {
     text-align: center;
@@ -127,7 +155,35 @@ input[type='submit'] {
   }
 }
 
+@media (max-width: 480px) {
+  .inputContainer {
+    padding-left: 20.5%;
+  }
 
+  .inputBox {
+    font-size: 0.9rem;
+    width: 100%;
+  }
 
+  input[type='submit'] {
+    width: 263px;
+    margin-left: 0%;
+    margin-bottom: 20px;
+  }
 
+  .inputBoxSelect {
+    font-size: 0.9rem;
+    width: 99%;
+  }
 
+  .signUp {
+    margin-left: -25%;
+  }
+
+  .titleContainer {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 0.1rem;
+  }
+
+}

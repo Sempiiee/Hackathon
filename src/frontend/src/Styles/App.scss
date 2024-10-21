@@ -38,7 +38,7 @@ $background-color: #F0F0F0;
   max-width: 40vw; // Use a smaller max-width to maintain visibility
   height: auto; // Maintain aspect ratio
   max-height: 40vw; // Maintain a maximum height to avoid small sizes
-  min-width: 200px; // Minimum width to prevent too small sizes
+  min-width: 250px; // Minimum width to prevent too small sizes
   min-height: 250px; // Minimum height to prevent too small sizes
 }
 
@@ -66,25 +66,27 @@ $background-color: #F0F0F0;
     position: absolute; // Position text over images
     top: 50%; // Center vertically
     left: 50%; // Center horizontally
-    transform: translate(-35%, -80%); // Offset to truly center
+    transform: translate(-40%, -80%); // Offset to truly center
     display: flex; // Use flexbox for alignment
     align-items: center; // Align items vertically
     justify-content: center; // Align items horizontally
     z-index: 500;
     color: #5474eb;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: transform 0.3s ease; // Smooth transition for text scaling
 
     //gill sans
     
     .big-number {
-      font-size: 3rem; // Adjust size as needed
+      font-size: 5vw; // Adjust size as needed
       font-weight: bold; // Make it bold
       margin-right: 5px; // Space between number and unit
+      text-align: center;
     }
   
     .unit {
-      transform: translate(-5%, 35%);
-      font-size: 1.5rem; // Adjust size for unit
+      transform: translate(-20%, 65%);
+      font-size: 1.5vw; // Adjust size for unit
     }
   }
   .gallon-image {
@@ -94,6 +96,10 @@ $background-color: #F0F0F0;
   &:hover {
     .gallon-image {
       transform: scale(1.1); // Scale up by 10%
+    }
+
+    .water-consumption-text {
+      transform: translate(-40%, -80%) scale(1.1); // Scale up the text on hover
     }
   }
 
@@ -193,7 +199,7 @@ $background-color: #F0F0F0;
   .message-bubbles-container {
     position: absolute; // Position relative to the nearest positioned ancestor
     right: 20px; // Distance from the right side
-    top: 23vh; // Adjust this value to move bubbles closer to the top
+    top: 10vh; // Adjust this value to move bubbles closer to the top
     z-index: 1000; // Ensure it's above other elements
   }
 
@@ -246,10 +252,17 @@ $background-color: #F0F0F0;
     max-height: 65vh; // Adjust max-height
   }
 
+  .gallon-section .water-consumption-text .big-number {
+    font-size: 7vw;
+    }
+
+  .gallon-section .water-consumption-text .unit {
+    font-size: 2.5vw;
+    transform: translate(-20%, 55%)
+  } 
+
   .shelves {
     transform: translateY(250px); // Move shelves down
-    // Optionally, you can add padding or borders to test the visual movement
-    //border: 1px solid green; // Debugging line
   }
 }
 
@@ -263,6 +276,15 @@ $background-color: #F0F0F0;
     top: 17vh;
   }
 
+  .gallon-section .water-consumption-text .big-number {
+    font-size: 8vw;
+    }
+
+  .gallon-section .water-consumption-text .unit {
+    font-size: 3vw;
+    transform: translate(-20%, 45%)
+  } 
+
   .scroll-section {
     margin-top: 30vh; // Space above the scroll section
   }
@@ -273,20 +295,27 @@ $background-color: #F0F0F0;
 
   .shelves {
     transform: translateY(250px); // Move shelves down
-    // Optionally, you can add padding or borders to test the visual movement
-    //border: 1px solid orange; // Debugging line
   }
 }
 
 @media (max-width: 480px) { // Mobile phones
   .gallon-image {
-    max-width: 80vw; // Further increase size for smaller screens
-    max-height: 70vh; // Adjust max-height for better visibility
+    max-width: 90vw; // Further increase size for smaller screens
+    max-height: 80vh; // Adjust max-height for better visibility
   }
 
   .gallon-section {
     top: 13vh;
   }
+
+  .gallon-section .water-consumption-text .big-number {
+    font-size: 9vw;
+    }
+
+  .gallon-section .water-consumption-text .unit {
+    transform: translate(-20%, 25%);
+    font-size: 5vw;
+  } 
 
   .scroll-section {
     margin-top: 15vh; // Space above the scroll section
@@ -298,7 +327,5 @@ $background-color: #F0F0F0;
 
   .shelves {
     transform: translateY(200px); // Move shelves down
-    // Optionally, you can add padding or borders to test the visual movement
-    //border: 1px solid yellow; // Debugging line
   }
 }

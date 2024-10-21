@@ -72,7 +72,6 @@ const LogIn: React.FC<LoginProps> = ({ setLoggedIn, setEmail }) => {
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
   };
-
   return (
     <div className={'mainContainer'}>
       <header className="top-bar">
@@ -121,13 +120,13 @@ const LogIn: React.FC<LoginProps> = ({ setLoggedIn, setEmail }) => {
       </div>
       <br />
       <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => updatePassword(ev.target.value)}
-          className={'inputBox'}
-          type="password"
-        />
+      <input
+            value={password}
+            placeholder="Enter your password here"
+            onChange={(ev) => updatePassword(ev.target.value)}
+            className={'inputBox'}
+            type={'password'}
+          />
         <label className="errorLabel">{passwordError}</label>
       </div>
       <br />

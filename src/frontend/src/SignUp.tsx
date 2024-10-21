@@ -104,6 +104,7 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
       console.log('Form is valid, proceed with registration...');
     }
   };
+
   const onButtonLogIn = () => {
     navigate('/LogIn');
   };
@@ -123,58 +124,46 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
   };
-/*
-
-function handleSubmit(event: any) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    fetch(`${import.meta.env.VITE_CANISTER_URL}/greet?name=${name}`)
-      .then(response => response.json()).then((json) => {
-        setGreeting(json.greeting)
-      });
-  }
-
-*/
-
 
   return (
     <div className={'mainContainer'}>
       <header className="top-bar">
-                {/* Hamburger Menu Button */}
-                <div className="menu-button" onClick={toggleMenu}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
+        <div className="menu-button" onClick={toggleMenu}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
 
-                <div className="logo">
-                    <img src={WaterdropLogo} alt="Water Drop Logo" />
-                    <h1>WaterSaver</h1>
-                </div>
-                    <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-                    {["Home", "Log In", "Sign Up"].map(tab => (
-                        <div
-                        key={tab}
-                        className={`tab ${activeTab === tab ? "active" : ""}`}
-                        onClick={() => {
-                            handleTabClick(tab);
-                            setMenuOpen(false); // Close menu on tab click
-                        }}
-                        >
-                        {tab}
-                        </div>
-                    ))}
-                    </nav>
+        <div className="logo">
+          <img src={WaterdropLogo} alt="Water Drop Logo" />
+          <h1>WaterSaver</h1>
+        </div>
+        <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
+          {["Home", "Log In", "Sign Up"].map(tab => (
+            <div
+              key={tab}
+              className={`tab ${activeTab === tab ? "active" : ""}`}
+              onClick={() => {
+                handleTabClick(tab);
+                setMenuOpen(false);
+              }}
+            >
+              {tab}
+            </div>
+          ))}
+        </nav>
 
-                    <div className="greeting">
-                    <span>Hi!</span>
-                    <span className="dropdown-arrow">▼</span>
-                    </div>
-            </header>
+        <div className="greeting">
+          <span>Hi!</span>
+          <span className="dropdown-arrow">▼</span>
+        </div>
+      </header>
+
       <div className={'titleContainer'}>
         <div><h1 className="homeTitle">Sign Up</h1></div>
       </div>
       <br />
+
       <div className={'inputContainer'}>
         <input
           value={firstName}
@@ -185,6 +174,7 @@ function handleSubmit(event: any) {
         <label className="errorLabel">{firstNameError}</label>
       </div>
       <br />
+
       <div className={'inputContainer'}>
         <input
           value={middleName}
@@ -195,6 +185,7 @@ function handleSubmit(event: any) {
         <label className="errorLabel">{middleNameError}</label>
       </div>
       <br />
+
       <div className={'inputContainer'}>
         <input
           value={lastName}
@@ -205,6 +196,7 @@ function handleSubmit(event: any) {
         <label className="errorLabel">{lastNameError}</label>
       </div>
       <br />
+
       <div className={'inputContainer'}>
         <select 
           value={location}
@@ -219,6 +211,7 @@ function handleSubmit(event: any) {
         <label className="errorLabel">{locationError}</label>
       </div>
       <br />
+
       <div className={'inputContainer'}>
         <input
           value={email}
@@ -229,24 +222,27 @@ function handleSubmit(event: any) {
         <label className="errorLabel">{emailError}</label>
       </div>
       <br />
+
       <div className={'inputContainer'}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => updatePassword(ev.target.value)}
-          className={'inputBox'}
-          type="password"
-        />
+          <input
+            value={password}
+            placeholder="Enter your password here"
+            onChange={(ev) => updatePassword(ev.target.value)}
+            className={'inputBox'}
+            type={'password'}
+          />
         <label className="errorLabel">{passwordError}</label>
       </div>
       <br />
+
       <div className={'buttonContainer'}>
         <input className={'inputButton'} type="submit" onClick={onButtonClick_SignUp} value={'Sign Up'} />
       </div>
       <div className={'inputContainer'}>
-      <button className = "signUp" onClick={onButtonLogIn}>Already Have an account? Log In</button>
+        <button className="signUp" onClick={onButtonLogIn}>Already Have an account? Log In</button>
       </div>
     </div>
   );
 };
+
 export default SignUp;

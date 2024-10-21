@@ -71,20 +71,12 @@ const Home: React.FC<HomeProps> = ({ email, loggedIn, setLoggedIn }) => {
                     <span className="dropdown-arrow">▼</span>
                     </div>
             </header>
-      <div className={'titleContainer'}>
-        <div>Welcome!</div>
+            <div className={'titleContainer'}>
+          <h1 className="homeTitle">Welcome!</h1>
+          <h5 className="homeTitle">This is the Home Page</h5>
+          
+        </div>
       </div>
-      <div>This is the home page.</div>
-      <div className={'buttonContainer'}>
-        <input
-          className={'inputButton'}
-          type="button"
-          onClick={onButtonClick}
-          value={loggedIn ? 'Log out' : 'Log in'}
-        />
-        {loggedIn ? <div>Your email address is {email}</div> : <div />}
-      </div>
-    </div>
   );
 };
 
