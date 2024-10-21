@@ -198,21 +198,6 @@ h4 {
     }
 }
 
-ol {
-    padding: 0;
-    list-style:decimal;
-    li {
-        padding: 5px 0;
-        text-align: center;
-        font-size: 1.2em;
-        color: #333;
-    }
-}
-
-
-
-
-
 @media (max-width: 480px) {
     .article-header{
         font-size: 80%;
