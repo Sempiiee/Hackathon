@@ -87,3 +87,11 @@ The smart contract will be reachable under `http://bkyz2-fmaaa-aaaaa-qaaaq-cai.l
 - [React quick start guide](https://react.dev/learn)
 - [`dfx.json` reference schema](https://internetcomputer.org/docs/current/references/dfx-json-reference/)
 - [Developer Experience Feedback Board](https://dx.internetcomputer.org/)
+
+## Team Members
+- Dean, Jack Harry F.       (Front End Developer)
+- Iguico, Sean Linard A.    (Front End Developer)
+- Rodriguez, Ron Brian D.   (Back End Developer)
+- Yumul, Lattrelle L.       (Back End Developer)
+
+## Video Walkthrough Link
