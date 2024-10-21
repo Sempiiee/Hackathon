@@ -23,7 +23,9 @@ const App: React.FC = () => {
 
   const [bottleCount, setBottleCount] = useState<number>(0);
   const [shelves, setShelves] = useState<number[]>([0]);
+
   const [waterConsumption, setWaterConsumption] = useState<number>(0.8); // State to track water consumption
+  const clipPath = `inset(calc(100% - (27.7% + (27.7% * (1.61 * ${waterConsumption})))) 0% 27.1% 0%)`;
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -148,6 +150,9 @@ const App: React.FC = () => {
             src={WaterGallonFilled}
             alt="Water Gallon Filled"
             className="gallon-image filled"
+            style={{
+              clipPath, // Apply the calculated clip-path
+            }}
           />
           <img
             src={WaterGallonEmpty}

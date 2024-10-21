@@ -31,6 +31,7 @@ $background-color: #F0F0F0;
   align-items: center; // Center horizontally
   position: relative; // Allows absolute positioning of child elements
   height: calc(100% - #{$top-bar-height}); // Ensure it takes full height minus top bar
+  //background-color: orange;
 }
 
 .gallon-image {
@@ -40,11 +41,14 @@ $background-color: #F0F0F0;
   max-height: 40vw; // Maintain a maximum height to avoid small sizes
   min-width: 250px; // Minimum width to prevent too small sizes
   min-height: 250px; // Minimum height to prevent too small sizes
+  //background-color: yellow;
 }
 
 .filled {
   z-index: 3; // Bring filled image to the front
   display: inline-block;
+  clip-path: inset(calc(100% - (27.7% + (27.7% * (1.61 * var(--water-usage)))) ) 0% 27.1% 0%);
+  //clip-path: inset(calc(100% - (27.7% + (27.7% * (1.61 * .50)))) 0% 27.1% 0%);
   //background-color: red;
 }
 
