@@ -23,6 +23,8 @@ const Impact: React.FC = () => {
           }
           else if (tab === "Impact") {
               navigate('/Impact');
+          }else if (tab === "Leaderboard"){
+            navigate('/LeaderBoards');
           }
     };
     const handleSignOut = () => {
