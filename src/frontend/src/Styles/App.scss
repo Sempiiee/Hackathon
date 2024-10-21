@@ -201,7 +201,7 @@ $background-color: #F0F0F0;
   .message-bubbles-container {
     position: absolute; // Position relative to the nearest positioned ancestor
     right: 20px; // Distance from the right side
-    top: 10vh; // Adjust this value to move bubbles closer to the top
+    top: 25vh; // Adjust this value to move bubbles closer to the top
     z-index: 1000; // Ensure it's above other elements
   }
 
