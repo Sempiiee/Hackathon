@@ -26,7 +26,39 @@ const App: React.FC = () => {
   const [bottleCount, setBottleCount] = useState<number>(0);
   const [shelves, setShelves] = useState<number[]>([0]);
 
-  const [waterConsumption, setWaterConsumption] = useState<number>(0.5); // State to track water consumption
+// Initialize waterConsumption with 0 or whatever default value you prefer
+const [waterConsumption, setWaterConsumption] = useState<number>(0); 
+
+// Function to fetch water consumption stats and set the state
+const fetchWaterConsumptionStats = async () => {
+  const email = GlobalState.email ? GlobalState.email : 'Guest';
+  const response = await fetch('/configuration/fetch-water-consumption', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  });
+  const data = await response.json();
+  
+  if (data.status === 1) {
+    // Sum the entries here
+    const totalConsumption = data.data.reduce((acc: number, curr: number) => acc + (curr || 0), 0);
+    setWaterConsumption(totalConsumption); // Set the total consumption
+  } else {
+    console.error(data.message);
+  }
+};
+
+useEffect(() => {
+  fetchWaterConsumptionStats(); // Call the fetch function when the component mounts
+}, []);
+
+
+
+
+
+  //const [waterConsumption, setWaterConsumption] = useState<number>(0.5); // State to track water consumption
 
   // Calculates cropping for WaterGallonFilled image in reference to the canister size
   const clipPath = `inset(calc(100% - (27.7% + (27.7% * (1.61 * ${waterConsumption})))) 0% 27.1% 0%)`;
@@ -211,7 +243,7 @@ const App: React.FC = () => {
           {/* Add water consumption text here */}
             <div className={`water-consumption-text ${waterConsumption > 1 ? 'white-text' : ''}`}>
               <span className="big-number">{waterConsumption}</span>
-              <span className="unit"> gal</span>
+              <span className="unit"> / 1kl</span>
             </div>
         </div>
 
