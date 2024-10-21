@@ -4,6 +4,7 @@ import "./Styles/LogUsage.scss";
 import { useNavigate } from 'react-router-dom';
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import { GlobalState } from './global'; /// THIS IS THE EMAIL
+import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 const LogUsage: React.FC = () => {
     const [usage, setUsage] = useState<number | ''>('');
@@ -136,6 +137,8 @@ const LogUsage: React.FC = () => {
             navigate('/Goal');
         } else if (tab === "Impact") {
             navigate('/Impact');
+        }else if (tab === "Leaderboard"){
+            navigate('/LeaderBoards');
         }
     };
 
@@ -176,6 +179,22 @@ const LogUsage: React.FC = () => {
                         </div>
                     ))}
                     </nav>
+
+                    <div className="leaderboard-button-container">
+                    <button 
+                        className={`leaderboard-button ${activeTab === 'leaderboards' ? 'active' : ''}`} 
+                        onClick={() => {
+                        handleTabClick('Leaderboard');
+                        setMenuOpen(false);
+                        }}
+                    >
+                        <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" />
+                    </button>
+                    </div>
+
+
+
+
 
                     <div className="greeting" onClick={toggleDropdown}>
                         <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>

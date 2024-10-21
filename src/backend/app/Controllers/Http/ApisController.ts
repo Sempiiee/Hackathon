@@ -1,5 +1,4 @@
 import { Configuration } from 'Database/entities/configuration';
-
 import { Response, Request } from 'express';
 
 export default class ApisController {
@@ -7,6 +6,7 @@ export default class ApisController {
         response.json({ greeting: `Hello, ${request.query.name}` });
     }
 
+    // New signup method
     static async insert_configuration(request: Request, response: Response) {
         const {
             firstName,
@@ -71,9 +71,11 @@ export default class ApisController {
         });
     }
 
+    // New login method
     static async login(request: Request, response: Response) {
         const { email, password } = request.body;
 
+        // Find the user by email
         const user = await Configuration.findOne({ where: { email } });
 
         if (!user) {
@@ -83,6 +85,7 @@ export default class ApisController {
             });
         }
 
+        // Check if the password matches (In a real app, you'd compare hashed passwords)
         if (user.password !== password) {
             return response.json({
                 status: 0,
@@ -90,7 +93,7 @@ export default class ApisController {
             });
         }
 
-  
+        // Successful login
         response.json({
             status: 1,
             message: "Login successful!",
@@ -114,7 +117,7 @@ export default class ApisController {
     }
 
 
-    //// INSERT DATA
+    //// INSERT DATA 
 
     // Update water consumption logic
     static async updateWaterConsumption(request: Request, response: Response) {
@@ -168,4 +171,37 @@ export default class ApisController {
         });
     }
 
+
+    //// Fetch Statistics
+
+    // Fetch water consumption statistics for a user
+    static async fetchWaterConsumptionStats(request: Request, response: Response) {
+        const { email } = request.body;
+
+        // Find the user by email
+        const user = await Configuration.findOne({ where: { email } });
+
+        if (!user) {
+            return response.json({
+                status: 0,
+                message: "User not found!",
+            });
+        }
+
+        // Get the water consumption entries
+        const waterConsumptionEntries = [
+            user.waterConsumptionEntry1,
+            user.waterConsumptionEntry2,
+            user.waterConsumptionEntry3,
+            user.waterConsumptionEntry4,
+            user.waterConsumptionEntry5,
+            user.waterConsumptionEntry6,
+            user.waterConsumptionEntry7,
+        ];
+
+        response.json({
+            status: 1,
+            data: waterConsumptionEntries,
+        });
+    }
 }

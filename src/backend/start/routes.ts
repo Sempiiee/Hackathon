@@ -10,6 +10,8 @@ Route.post('/configuration/login', ApisController.login)
 // Insert Data 
 Route.post('/configuration/update-water-consumption', ApisController.updateWaterConsumption);
 
+// See Statistics
+Route.post('/configuration/fetch-water-consumption', ApisController.fetchWaterConsumptionStats);
 
 /*
 Route.get('/configurations',ApisController.configurations)

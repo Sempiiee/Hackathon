@@ -4,6 +4,7 @@ import "./index.scss";
 import "./Styles/Profile.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import UserIcon from "../public/User_Icon.png";
+import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 const Profile = () => {
   const [user, setUser] = useState({
@@ -43,6 +44,8 @@ const Profile = () => {
       navigate('/Goal');
     } else if (tab === "Impact") {
       navigate('/Impact');
+    } else if (tab === "Leaderboard"){
+      navigate('/LeaderBoards');
     }
   };
 
@@ -90,6 +93,21 @@ const Profile = () => {
             </div>
           ))}
         </nav>
+
+
+        <div className="leaderboard-button-container">
+          <button 
+            className={`leaderboard-button ${activeTab === 'leaderboards' ? 'active' : ''}`} 
+            onClick={() => {
+              handleTabClick('Leaderboard');
+              setMenuOpen(false);
+            }}
+          >
+            <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" />
+          </button>
+        </div>
+
+
 
         <div className="greeting" onClick={toggleDropdown}>
           <span>Hi!</span>

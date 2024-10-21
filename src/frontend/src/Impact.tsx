@@ -71,6 +71,21 @@ const Impact: React.FC = () => {
                     ))}
                     </nav>
 
+                    <div className="leaderboard-button-container">
+                    <button 
+                        className={`leaderboard-button ${activeTab === 'leaderboards' ? 'active' : ''}`} 
+                        onClick={() => {
+                        handleTabClick('Leaderboard');
+                        setMenuOpen(false);
+                        }}
+                    >
+                        <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" />
+                    </button>
+                    </div>
+
+
+
+
                     <div className="greeting" onClick={toggleDropdown}>
                     <span>Hi!</span>
                     <span className="dropdown-arrow">▼</span>
