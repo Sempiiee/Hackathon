@@ -147,7 +147,7 @@ const Profile = () => {
           </div>
         )}
       </header>
-      <img src={user.picture || WaterdropLogo} alt="Profile" className="profile-picture" />
+      <img src={UserIcon} alt="Profile" className="profile-picture" />
       {isEditing ? (
         <form onSubmit={handleSubmit} className="profile-form">
           <div className="form-group">
