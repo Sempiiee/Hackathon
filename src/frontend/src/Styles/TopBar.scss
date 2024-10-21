@@ -11,13 +11,14 @@
     padding: 8px; // Initial padding
     background: linear-gradient(to bottom, #e0e0e0, #ffffff);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 0.975;
     z-index: 1000;
     transition: height 0.5s ease, padding 0.5s ease, opacity 0.5s ease; // Transition for height, padding, and opacity
 
     @media (max-width: 1500px) {
         height: 65px; // Increased height for mobile
         padding: 15px 10px; // Adjust padding if needed
-        opacity: 0.9; // Optional: Slight fade effect when in mobile view
+        opacity: 0.975; // Optional: Slight fade effect when in mobile view
     }
 }
 
@@ -82,7 +83,25 @@
         cursor: pointer;
 
         &:hover {
-            background-color: #f0f0f0; // Change background on hover
+            color: #5474eb; 
+            border-bottom: 3px solid #5474eb; // Show blue bar on hover
+        }
+    
+        &:not(.active) {
+            color: grey; 
+        }
+    
+        @media (max-width: 768px) {
+            border-bottom: none; // Remove underline for all tabs on mobile
+    
+            &.active {
+                background-color: lightgrey; 
+                color: black; 
+            }
+    
+            &:hover {
+                border-bottom: none; // Ensure no underline on hover
+            }
         }
     }
 }
