@@ -97,6 +97,15 @@ $background-color: #F0F0F0;
       font-size: 1.5vw; // Adjust size for unit
     }
   }
+
+  .red-tint {
+    filter: brightness(0.5) saturate(3) hue-rotate(-180deg);
+  }
+
+  .white-text {
+    color: white; // Change the text color to white
+  }
+  
   .gallon-image {
     transition: transform 0.3s ease; // Smooth transition for both scaling up and down
   }

@@ -191,7 +191,7 @@ const App: React.FC = () => {
           <img
             src={WaterGallonFilled}
             alt="Water Gallon Filled"
-            className="gallon-image filled"
+            className={`gallon-image filled ${waterConsumption > 1 ? 'red-tint' : ''}`}
             style={{
               clipPath,
             }}
@@ -209,10 +209,10 @@ const App: React.FC = () => {
           />
           
           {/* Add water consumption text here */}
-          <div className="water-consumption-text">
-            <span className="big-number">{waterConsumption}</span>
-            <span className="unit"> gal</span>
-          </div>
+            <div className={`water-consumption-text ${waterConsumption > 1 ? 'white-text' : ''}`}>
+              <span className="big-number">{waterConsumption}</span>
+              <span className="unit"> gal</span>
+            </div>
         </div>
 
         <div className="scroll-section">
