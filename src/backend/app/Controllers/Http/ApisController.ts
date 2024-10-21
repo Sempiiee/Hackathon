@@ -7,7 +7,6 @@ export default class ApisController {
         response.json({ greeting: `Hello, ${request.query.name}` });
     }
 
-    // New signup method
     static async insert_configuration(request: Request, response: Response) {
         const {
             firstName,
@@ -72,11 +71,9 @@ export default class ApisController {
         });
     }
 
-    // New login method
     static async login(request: Request, response: Response) {
         const { email, password } = request.body;
 
-        // Find the user by email
         const user = await Configuration.findOne({ where: { email } });
 
         if (!user) {
@@ -86,7 +83,6 @@ export default class ApisController {
             });
         }
 
-        // Check if the password matches (In a real app, you'd compare hashed passwords)
         if (user.password !== password) {
             return response.json({
                 status: 0,
@@ -94,7 +90,7 @@ export default class ApisController {
             });
         }
 
-        // Successful login
+  
         response.json({
             status: 1,
             message: "Login successful!",

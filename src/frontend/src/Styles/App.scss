@@ -6,7 +6,7 @@ $background-color: #F0F0F0;
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 200vh; // Full height of the viewport
+  //height: 200vh; // Full height of the viewport
   position: relative;
   background-color: $background-color;
 
@@ -68,6 +68,7 @@ $background-color: #F0F0F0;
   align-items: center; // Center images vertically
   height: 60vh; // Set a maximum height for the section
   top: 20vh;
+  height: 60vh;
 
   .water-consumption-text {
     position: absolute; // Position text over images
@@ -153,7 +154,7 @@ $background-color: #F0F0F0;
   padding: 20px; // Padding for spacing
   background-color: $background-color; // Change this to your desired background color
   width: 100%; // Full width of the parent
-  height: 100vh;
+  height: 110vh;
   text-align: center; // Center text within the container
   margin-top: 12vh; // Add margin to separate it from the previous content
   min-height: 300px; // Adjust minimum height as desired
@@ -208,7 +209,7 @@ $background-color: #F0F0F0;
     position: absolute; // Position relative to the nearest positioned ancestor
     right: 20px; // Distance from the right side
     top: 25vh; // Adjust this value to move bubbles closer to the top
-    z-index: 1000; // Ensure it's above other elements
+    z-index: 1; // Ensure it's above other elements
   }
 
   .bottle-shelf-wrapper {
@@ -249,7 +250,46 @@ $background-color: #F0F0F0;
     &:hover {
       transform: scale(1.075); // Scale the shelf on hover (adjust the scale as needed)
       z-index: 10; // Bring hovered shelf to the front
+    }
   }
+
+  .equivalent-message {
+    position: absolute; // Position it within the equivalent section
+    transform: translateX(0%); // Center the text
+    z-index: 10; // Ensure it's above other elements
+    text-align: center; // Center the text alignment
+    font-size: 1.5em; // Base font size as needed
+    font-weight: 600;
+
+    // Positioning adjustments
+    position: relative; // Allows for positioning adjustments
+    top: 0; // Adjust this value to move the message up or down
+    left: 0; // Adjust this value to move the message left or right
+
+    .better-text {
+      //display: flex; // Allows the text to align in a row
+      align-items: baseline; // Aligns baseline of the text
+
+      .better {
+        color: rgb(121, 176, 37); // Style for "better"
+      }
+
+      .worse {
+        color: red; // Style for "worse"
+      }
+    }
+
+    .percentage-text {
+      color: #5474eb; // Style for percentage
+      font-size: 1.5em; // Bigger font size for percentage
+      margin-left: 5px; // Space between the text
+    }
+
+    .area-text {
+      color: black; // Style for "of people in your area!"
+      margin-top: 0px; // Space above the second line
+      margin-left: 60px;
+    }
   }
 }
 
@@ -269,8 +309,18 @@ $background-color: #F0F0F0;
     transform: translate(-20%, 55%)
   } 
 
+  .equivalent-section {
+    height: 100vh;
+    margin-top: 12%; // Add margin to separate it from the previous content
+  }
+
   .shelves {
     transform: translateY(250px); // Move shelves down
+  }
+
+  .equivalent-section .equivalent-message {
+    top: 200px;
+    font-size: 1.2em;
   }
 }
 
@@ -304,6 +354,11 @@ $background-color: #F0F0F0;
   .shelves {
     transform: translateY(250px); // Move shelves down
   }
+
+  .equivalent-section .equivalent-message {
+    top: 150px;
+    font-size: 1.2em;
+  }
 }
 
 @media (max-width: 480px) { // Mobile phones
@@ -330,10 +385,16 @@ $background-color: #F0F0F0;
   }
 
   .equivalent-section {
+    height: 120vh;
     margin-top: 12%; // Add margin to separate it from the previous content
   }
 
   .shelves {
     transform: translateY(200px); // Move shelves down
+  }
+
+  .equivalent-section .equivalent-message {
+    top: 150px;
+    font-size: 1.2em;
   }
 }

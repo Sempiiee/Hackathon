@@ -42,6 +42,9 @@ const App: React.FC = () => {
     } else if (tab === "Impact") {
       navigate('/Impact');
     }
+    else if (tab === "Leader Boards") {
+      navigate('/LeaderBoards');
+    }
   };
 
   const toggleMenu = () => {
@@ -74,40 +77,43 @@ const App: React.FC = () => {
   };
 
   const getMaxBottlesPerShelf = () => {
-    return window.innerWidth <= 1300 ? 6 : 9; // 6 bottles for smaller screens, 9 for larger
+    return window.innerWidth <= 1300 ? 7 : 10; // 6 bottles for smaller screens, 9 for larger
   };
 
   const addBottle = () => {
     setBottleCount((prevCount) => {
       const newCount = prevCount + 1;
-      const newShelves = Math.floor(newCount / bottlesPerShelf());
-      
-      const maxShelves = getMaxShelves(); // Get the max shelves based on screen width
-      const maxBottlesPerShelf = getMaxBottlesPerShelf(); // Get the max bottles per shelf based on screen width
   
-      // Calculate total bottles allowed considering shelves
-      const totalBottlesAllowed = maxShelves * maxBottlesPerShelf;
+      // Get maximum shelves allowed based on screen width
+      const maxShelves = getMaxShelves(); // 3 for media, 4 for non-media
+      const maxBottlesPerShelf = getMaxBottlesPerShelf(); // 6 for media, 9 for non-media
   
-      // Only update shelves if it's within the maximum limit
+      // Calculate the total allowed bottles based on max shelves and bottles per shelf
+      const totalBottlesAllowed = maxShelves * maxBottlesPerShelf; 
+  
+      // Always return the new count for bottle count state
+      const newShelves = Math.floor(newCount / maxBottlesPerShelf); // Calculate new shelves based on bottles per shelf
+  
+      // Update shelves only if the bottle count is within the allowed range
       if (newCount <= totalBottlesAllowed) {
-        setShelves(Array.from({ length: newShelves + 1 }, (_, i) => i));
-        return newCount;
+        setShelves(Array.from({ length: Math.min(newShelves + 1, maxShelves) }, (_, i) => i));
       }
   
-      // If the max number of bottles is reached, no more bottles are added
-      return prevCount;
+      return newCount; 
     });
   };
 
   const messages = [
     <div key={1}>
-      You are averaging <span style={{ color: 'blue' }}>1.3 gallons</span> of water daily!
+      You are averaging <span style={{ color: '#5474eb' }}>1.3 gallons</span> of water daily!
     </div>,
     <div key={2}>
       That is equivalent to <span style={{ color: 'rgb(121, 176, 37)', fontWeight: 500 }}>{bottleCount}</span>
-      <span style={{ color: 'blue' }}> 350ml</span> bottles of water.
+      <span style={{ color: '#5474eb' }}> 350ml</span> bottles of water.
     </div>
   ];
+
+  const isBetter = true;
 
   useEffect(() => {
     const adjustBottlePosition = () => {
@@ -140,7 +146,7 @@ const App: React.FC = () => {
         </div>
 
         <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-          {["Log Usage", "Tips & Advice", "Overview", "Goals", "Impact"].map(tab => (
+          {["Log Usage", "Tips & Advice", "Overview", "Goals", "Leader Boards", "Impact"].map(tab => (
             <div
               key={tab}
               className={`tab ${activeTab === tab ? "active" : ""}`}
@@ -236,7 +242,21 @@ const App: React.FC = () => {
             ))}
           </div>
         </div>
+
+        {/* New Message */}
+        <div className="equivalent-message">
+          <div className="better-text">
+            This is&nbsp;
+            <span className={isBetter ? 'better' : 'worse'}>
+              {isBetter ? 'better' : 'worse'}&nbsp;
+            </span>
+            than&nbsp;
+            <span className="percentage-text">89%</span>
+          </div>
+          <div className="area-text">of people in your area!</div>
+        </div>
       </div>
+      
     </div>
   );
 };
