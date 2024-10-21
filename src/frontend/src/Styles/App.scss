@@ -44,6 +44,8 @@ $background-color: #F0F0F0;
 
 .filled {
   z-index: 3; // Bring filled image to the front
+  display: inline-block;
+  background-color: red;
 }
 
 .empty {
