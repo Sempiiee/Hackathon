@@ -136,9 +136,9 @@ const Profile = () => {
         </div>
 
         <div className="greeting" onClick={toggleDropdown}>
-          <span>Hi!</span>
-          <span className="dropdown-arrow">▼</span>
-        </div>
+                    <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
+                    <span className="dropdown-arrow">▼</span>
+                </div>
 
         {isDropdownOpen && (
           <div className="dropdown-menu open">

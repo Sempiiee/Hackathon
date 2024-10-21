@@ -4,6 +4,7 @@ import "./index.scss";
 import "./Styles/ActiveTab.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import LeaderboardIcon from "../public/Leaderboard_Icon.png";
+import { GlobalState } from './global';
 
 const Tips: React.FC = () => {
     const [activeTab, setActiveTab] = useState<string>("Tips & Advice");
@@ -84,9 +85,10 @@ const Tips: React.FC = () => {
                 </div>
                 
                 <div className="greeting" onClick={toggleDropdown}>
-                    <span>Hi!</span>
+                    <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
                     <span className="dropdown-arrow">▼</span>
                 </div>
+                
                 {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>

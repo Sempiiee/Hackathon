@@ -4,6 +4,7 @@ import "./Styles/Goal.scss";
 import { useNavigate } from 'react-router-dom';
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import LeaderboardIcon from "../public/Leaderboard_Icon.png";
+import { GlobalState } from './global';
 
 interface Note {
     id: number;
@@ -128,10 +129,10 @@ const Goal: React.FC = () => {
 
 
                     <div className="greeting" onClick={toggleDropdown}>
-                    <span>Hi!</span>
+                    <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
                     <span className="dropdown-arrow">▼</span>
-                    </div>
-
+                </div>
+                
                     {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>

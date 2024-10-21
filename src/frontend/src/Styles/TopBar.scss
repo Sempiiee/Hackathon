@@ -14,7 +14,7 @@
     z-index: 1000;
     transition: height 0.5s ease, padding 0.5s ease, opacity 0.5s ease; // Transition for height, padding, and opacity
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1500px) {
         height: 65px; // Increased height for mobile
         padding: 15px 10px; // Adjust padding if needed
         opacity: 0.9; // Optional: Slight fade effect when in mobile view
@@ -26,7 +26,7 @@
     display: none; // Hidden by default
     background-color: transparent; // Default background
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1500px) {
         display: flex; // Show on mobile
         position: absolute;
         left: 1%;
@@ -101,7 +101,7 @@
         color: black;
     }
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1500px) {
         position: absolute;
         left: 48.5%;
         transform: translateX(-50%);
@@ -121,7 +121,7 @@
     width: 40%;
     text-align: center;
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1500px) {
         display: none; // Hide on mobile by default
     }
 
@@ -221,9 +221,9 @@
 
 .leaderboard-button-container {
     position: relative;
-    left: 3.5%;
+    right: 35%;
 
-    @media (max-width: 1300px) {
+    @media (max-width: 1500px) {
         left: 13%;
     }
 }
@@ -258,7 +258,7 @@
 
 // Greeting section
 .greeting {
-    margin-left: auto;
+    margin-left: 0%;
     display: flex;
     font-weight: 525;
     align-items: center;

@@ -3,14 +3,15 @@ import "./Styles/ActiveTab.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import { useNavigate } from 'react-router-dom';
 import { GlobalState } from './global';
-import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 const LeaderBoards: React.FC = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<string>("Leaderboard");
+    const [activeTab, setActiveTab] = useState<string>("Leaderboards");
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [waterStats, setWaterStats] = useState<number[]>([]);
+
+    ///// User Statistics
 
     const fetchWaterConsumptionStats = async () => {
         const email = GlobalState.email ? GlobalState.email : 'Guest';
@@ -49,6 +50,49 @@ const LeaderBoards: React.FC = () => {
         );
     };
 
+
+    //// Overall Leaderboards
+
+    const [leaderboardData, setLeaderboardData] = useState<any[]>([]);
+
+      const fetchLeaderboard = async () => {
+          const response = await fetch('/configuration/fetch-leaderboard', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+          });
+          const data = await response.json();
+
+          if (data.status === 1) {
+              setLeaderboardData(data.data);
+          } else {
+              console.error(data.message);
+          }
+      };
+
+      useEffect(() => {
+          fetchWaterConsumptionStats();
+          fetchLeaderboard();
+      }, []);
+
+      const renderLeaderboard = () => {
+        return (
+            <div className="stats-container">
+                <h2>Weekly Leaderboard</h2>
+                <ol>
+                    {leaderboardData.map((user, index) => (
+                        <li key={index}>
+                            {user.rank}. {user.lastName} - {user.totalWaterConsumption} Liters - {user.region}
+                        </li>
+                    ))}
+                </ol>
+            </div>
+        );
+      };
+
+      /////
+
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
         if (tab === "Log Usage") {
@@ -61,8 +105,6 @@ const LeaderBoards: React.FC = () => {
             navigate('/Goal');
         } else if (tab === "Impact") {
             navigate('/Impact');
-        }else if (tab === "Leaderboard"){
-          navigate('/LeaderBoards');
         }
     };
 
@@ -110,19 +152,6 @@ const LeaderBoards: React.FC = () => {
                     ))}
                 </nav>
 
-                <div className="leaderboard-button-container">
-                <button 
-                  className={`leaderboard-button ${activeTab === 'Leaaderboard' ? 'active' : ''}`} 
-                  onClick={() => {
-                    handleTabClick('Leaderboard');
-                    setMenuOpen(false);
-                  }}
-                >
-                  <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" style={{opacity: activeTab === 'Leaderboard' ? 1 : 0.6 }} />
-                </button>
-              </div>    
-
-
                 <div className="greeting" onClick={toggleDropdown}>
                     <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
                     <span className="dropdown-arrow">▼</span>
@@ -137,6 +166,9 @@ const LeaderBoards: React.FC = () => {
             </header>
 
             {renderWaterStats()}
+            {renderLeaderboard()}
+
+
         </div>
     );
 };

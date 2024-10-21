@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import WaterUse from "../public/test.png";
 import LeaderboardIcon from "../public/Leaderboard_Icon.png";
+import { GlobalState } from './global';
+
+
 const Impact: React.FC = () => {
     const [usage, setUsage] = useState<number | ''>('');
     const [activeTab, setActiveTab] = useState<string>("Impact");
@@ -87,9 +90,9 @@ const Impact: React.FC = () => {
 
 
                     <div className="greeting" onClick={toggleDropdown}>
-                    <span>Hi!</span>
+                    <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
                     <span className="dropdown-arrow">▼</span>
-                    </div>
+                </div>
 
                     {isDropdownOpen && (
                     <div className="dropdown-menu open">

@@ -11,6 +11,7 @@ import StaticArrows from "../public/Static_Arrows.png";
 import WaterBottle from "../public/Water_Bottle.png";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import LeaderboardIcon from "../public/Leaderboard_Icon.png";
+import { GlobalState } from './global';
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -173,9 +174,9 @@ const App: React.FC = () => {
         </div>
 
         <div className="greeting" onClick={toggleDropdown}>
-          <span>Hi!</span>
-          <span className="dropdown-arrow">▼</span>
-        </div>
+                    <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
+                    <span className="dropdown-arrow">▼</span>
+                </div>
 
         {isDropdownOpen && (
           <div className="dropdown-menu open">
