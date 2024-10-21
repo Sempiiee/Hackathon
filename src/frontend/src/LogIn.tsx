@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./index.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
+import { GlobalState } from './global';
+
+
 interface LoginProps {
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
@@ -14,6 +17,7 @@ const LogIn: React.FC<LoginProps> = ({ setLoggedIn, setEmail }) => {
   const [password, updatePassword] = useState<string>('');
   const [emailError, setEmailError] = useState<string>(''); 
   const [passwordError, setPasswordError] = useState<string>('');
+  const [loginError, setLoginError] = useState<string>(''); // To handle login errors from the backend
 
   const navigate = useNavigate();
 
@@ -43,15 +47,47 @@ const LogIn: React.FC<LoginProps> = ({ setLoggedIn, setEmail }) => {
     return isValid;
   };
 
-  const onButtonClick = () => {
-    if (validateForm()) {
-      setLoggedIn(true);
-      setEmail(email);
-      navigate('/App');
-      console.log('Form is valid, proceed with authentication...');
-    }
-    navigate('/App');
-  };
+
+
+// Handle login ON CLICK
+const onButtonClick = () => {
+  if (validateForm()) {
+    // Fetch request for logging in
+    fetch(`${import.meta.env.VITE_CANISTER_URL}/configuration/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to authenticate'); // Handle bad response
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Response:', data);  // Debugging response
+        if (data.status === 1) {
+          GlobalState.email = email;
+          setLoggedIn(true);
+          navigate('/App');  // Navigate to /App directly on successful login
+        } else {
+          setLoginError(data.message || 'Invalid credentials'); // Show error message for incorrect login
+        }
+      })
+      .catch((error) => {
+        setLoginError('Error occurred during login. Please try again.');
+        console.error('Login error:', error); // Show detailed error
+      });
+  }
+};
+
+
+
 
   const onButtonSignUp = () => {
     navigate('/SignUp');

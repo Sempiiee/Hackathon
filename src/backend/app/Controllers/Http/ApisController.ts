@@ -1,6 +1,5 @@
 import { Configuration } from 'Database/entities/configuration';
-import { User } from 'Database/entities/user';
-import { WaterConsumption } from 'Database/entities/waterconsumption'
+
 import { Response, Request } from 'express';
 
 export default class ApisController {
@@ -8,366 +7,169 @@ export default class ApisController {
         response.json({ greeting: `Hello, ${request.query.name}` });
     }
 
-    static async configurations(request: Request, response: Response){
-        const configuration = await Configuration.find();
+    // New signup method
+    static async insert_configuration(request: Request, response: Response) {
+        const {
+            firstName,
+            middleInitial,
+            lastName,
+            region,
+            email,
+            password,
+            waterConsumptionEntry1,
+            waterConsumptionEntry2,
+            waterConsumptionEntry3,
+            waterConsumptionEntry4,
+            waterConsumptionEntry5,
+            waterConsumptionEntry6,
+            waterConsumptionEntry7,
+            waterConsumptionEntry8,
+            waterConsumptionEntry9,
+            waterConsumptionEntry10,
+            goal1,
+            goal2,
+            goal3,
+            goal4,
+            goal5,
+        } = request.body;
 
-        response.json({
-            status: 1,
-            data: configuration
-        });
-    }
-
-    static async insert_configuration(request: Request, response: Response){
-        const { key, value } = request.body;
-        await Configuration.insert({key, value});
-
-        const checkIfExist = await Configuration.findBy({ key });
-
-        if(!checkIfExist){
-            response.json({
+        const existingUser = await Configuration.findOne({ where: { email } });
+        if (existingUser) {
+            return response.json({
                 status: 0,
-                message: "Configuration already exists!"
+                message: "Email is already registered!",
             });
         }
 
+        const newUserConfiguration = await Configuration.create({
+            firstName,
+            middleInitial,
+            lastName,
+            region,
+            email,
+            password,
+            waterConsumptionEntry1,
+            waterConsumptionEntry2,
+            waterConsumptionEntry3,
+            waterConsumptionEntry4,
+            waterConsumptionEntry5,
+            waterConsumptionEntry6,
+            waterConsumptionEntry7,
+            waterConsumptionEntry8,
+            waterConsumptionEntry9,
+            waterConsumptionEntry10,
+            goal1,
+            goal2,
+            goal3,
+            goal4,
+            goal5,
+        }).save();
+
         response.json({
             status: 1,
-            message: "Configuration has been inserted!",
+            message: "Signup successful!",
+            data: newUserConfiguration,
         });
     }
 
-    static async update_configuration(request: Request, response: Response){
-        const { key, value } = request.body;
-        const getConfiguration = await Configuration.findBy({ key });
+    // New login method
+    static async login(request: Request, response: Response) {
+        const { email, password } = request.body;
 
-        if(!getConfiguration){
-            response.json({
+        // Find the user by email
+        const user = await Configuration.findOne({ where: { email } });
+
+        if (!user) {
+            return response.json({
                 status: 0,
-                message: "Configuration not found!"
+                message: "Email not found!",
             });
         }
-        
-        await Configuration.update({ key }, { value });
-        response.json({
-            status: 1,
-            message: "Configuration has been updated!",
-        });
-    }
 
-    static async delete_configuration(request: Request, response: Response){
-        const { key } = request.body;
-        const getConfiguration = await Configuration.findBy({ key });
-
-        if(!getConfiguration){
-            response.json({
+        // Check if the password matches (In a real app, you'd compare hashed passwords)
+        if (user.password !== password) {
+            return response.json({
                 status: 0,
-                message: "Configuration not found!"
+                message: "Incorrect password!",
             });
         }
 
-        await Configuration.delete({ key });
+        // Successful login
+        response.json({
+            status: 1,
+            message: "Login successful!",
+            data: {
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                region: user.region,
+                // Add any other necessary user details here
+            },
+        });
+    }
+
+    static async configurations(request: Request, response: Response) {
+        const configurations = await Configuration.find();
 
         response.json({
             status: 1,
-            message: "Configuration has been deleted!",
+            data: configurations,
         });
     }
 
 
+    //// INSERT DATA
 
+    // Update water consumption logic
+    static async updateWaterConsumption(request: Request, response: Response) {
+        const { email, totalWaterConsumption } = request.body;
 
-//User table 
+        // Find user by email
+        const user = await Configuration.findOne({ where: { email } });
 
-
-//REEEEEEEEEEEAAAAAAAAAAAADDDDDDDDDDDDDDDDDD
-static async users(request: Request, response: Response) {
-    try {
-        const users = await User.find();
-
-        response.json({
-            status: 1,
-            data: users
-        });
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        response.json({
-            status: 0,
-            message: "An error occurred while fetching users."
-        });
-    }
-}
-
-//INSSSSSSSEEEEEEEEEEEEEEERRRRRRRRRRRRRTTTTTTTTTTTT
-static async insert_user(request: Request, response: Response) {
-    const {
-        user_FirstName,
-        user_MiddleName,
-        user_LastName,
-        user_Username,
-        user_Age,
-        user_Email,
-        user_Password,
-        user_Region
-    } = request.body;
-
-    // Check if a user with the same username or email already exists
-    const checkIfExist = await User.findOne({ where: { user_Username, user_Email } });
-
-    if (checkIfExist) {
-        response.json({
-            status: 0,
-            message: "User with this username or email already exists!"
-        });
-        return;
-    }
-
-    // Insert the new user into the database
-    await User.insert({
-        user_FirstName,
-        user_MiddleName,
-        user_LastName,
-        user_Username,
-        user_Email,
-        user_Password,
-        user_Region
-    });
-
-    response.json({
-        status: 1,
-        message: "User has been inserted!"
-    });
-}
-
-//UPPPPPPPPPDDAAAAAAAAAAAAATTTTTTEEEEEEEEEEEE
-static async update_user(request: Request, response: Response) {
-    const {
-        user_Id,
-        user_FirstName,
-        user_MiddleName,
-        user_LastName,
-        user_Username,
-        user_Age,
-        user_Email,
-        user_Password,
-        user_Region
-    } = request.body;
-
-    try {
-        // Find user by ID
-        const getUser = await User.findOneBy({ user_Id });
-
-        if (!getUser) {
-            response.json({
+        if (!user) {
+            return response.status(404).json({
                 status: 0,
-                message: "User not found!"
+                message: "User not found!",
             });
-            return;
         }
 
-        // Update user details
-        await User.update(
-            { user_Id },
-            {
-                user_FirstName,
-                user_MiddleName,
-                user_LastName,
-                user_Username,
-                user_Email,
-                user_Password,
-                user_Region
-            }
-        );
-
-        response.json({
-            status: 1,
-            message: "User has been updated!",
-        });
-    } catch (error) {
-        console.error("Error updating user:", error);
-        response.json({
-            status: 0,
-            message: "An error occurred while updating the user."
-        });
-    }
-}
-
-//DEEEEEEEEELEEEEEEEEEEEEEETEEEEEEEEEEEEE
-static async delete_user(request: Request, response: Response) {
-    const { user_Id } = request.body; // Get the user ID from the request body
-
-    try {
-        // Find user by ID
-        const getUser = await User.findOneBy({ user_Id });
-
-        if (!getUser) {
-            response.json({
+        // Update the first empty water consumption entry
+        if (!user.waterConsumptionEntry1) {
+            user.waterConsumptionEntry1 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry2) {
+            user.waterConsumptionEntry2 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry3) {
+            user.waterConsumptionEntry3 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry4) {
+            user.waterConsumptionEntry4 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry5) {
+            user.waterConsumptionEntry5 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry6) {
+            user.waterConsumptionEntry6 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry7) {
+            user.waterConsumptionEntry7 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry8) {
+            user.waterConsumptionEntry8 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry9) {
+            user.waterConsumptionEntry9 = totalWaterConsumption;
+        } else if (!user.waterConsumptionEntry10) {
+            user.waterConsumptionEntry10 = totalWaterConsumption;
+        } else {
+            return response.json({
                 status: 0,
-                message: "User not found!"
+                message: "All water consumption entries are full!",
             });
-            return;
         }
 
-        // Delete the user
-        await User.delete({ user_Id });
+        // Save the updated user data
+        await user.save();
 
-        response.json({
+        return response.json({
             status: 1,
-            message: "User has been deleted!",
-        });
-    } catch (error) {
-        console.error("Error deleting user:", error);
-        response.json({
-            status: 0,
-            message: "An error occurred while deleting the user."
+            message: "Water consumption updated successfully!",
+            data: user,
         });
     }
-}
 
-
-
-
-
-
-
-//Water Consumption table 
-
-
-// REEEEEEEEEEAAAAAAAAAAAADDDDDDDDDDDDDDDDDD
-static async waterconsumptions(request: Request, response: Response) {
-    try {
-        const consumptions = await WaterConsumption.find();
-        response.json({
-            status: 1,
-            data: consumptions
-        });
-    } catch (error) {
-        console.error("Error fetching water consumptions:", error);
-        response.json({
-            status: 0,
-            message: "An error occurred while fetching water consumptions."
-        });
-    }
-}
-
-// INSSSSSSSEEEEEEEEEEEEEEERRRRRRRRRRRRRTTTTTTTTTTTT
-static async insertWaterConsumption(request: Request, response: Response) {
-    const {
-        showerConsump,
-        brushConsump,
-        washhandConsump,
-        drinkingConsump,
-        laundryConsump,
-        dishwashingConsump,
-        flushingConsump,
-        foodprepConsump,
-        otherConsump,
-    } = request.body;
-
-    // Insert the new water consumption record into the database
-    const newConsumption = await WaterConsumption.create({
-        showerConsump,
-        brushConsump,
-        washhandConsump,
-        drinkingConsump,
-        laundryConsump,
-        dishwashingConsump,
-        flushingConsump,
-        foodprepConsump,
-        otherConsump
-    }).save();
-
-    response.json({
-        status: 1,
-        message: "Water consumption has been inserted!",
-        data: newConsumption
-    });
-}
-
-// UPPPPPPPPPDAAAAAAAAAAAAATTTTTTEEEEEEEEEEEE
-static async updateWaterConsumption(request: Request, response: Response) {
-    const {
-        user_Id, // Assuming user_Id is the identifier for the water consumption record
-        showerConsump,
-        brushConsump,
-        washhandConsump,
-        drinkingConsump,
-        laundryConsump,
-        dishwashingConsump,
-        flushingConsump,
-        foodprepConsump,
-        otherConsump,
-    } = request.body;
-
-    try {
-        // Find water consumption record by user ID
-        const getConsumption = await WaterConsumption.findOneBy({ user_Id });
-
-        if (!getConsumption) {
-            response.json({
-                status: 0,
-                message: "Water consumption record not found!"
-            });
-            return;
-        }
-
-        // Update water consumption details
-        await WaterConsumption.update(
-            { user_Id },
-            {
-                showerConsump,
-                brushConsump,
-                washhandConsump,
-                drinkingConsump,
-                laundryConsump,
-                dishwashingConsump,
-                flushingConsump,
-                foodprepConsump,
-                otherConsump
-            }
-        );
-
-        response.json({
-            status: 1,
-            message: "Water consumption has been updated!",
-        });
-    } catch (error) {
-        console.error("Error updating water consumption:", error);
-        response.json({
-            status: 0,
-            message: "An error occurred while updating the water consumption."
-        });
-    }
-}
-
-// DEEEEEEEEELEEEEEEEEEEEEEETEEEEEEEEEEEEE
-static async deleteWaterConsumption(request: Request, response: Response) {
-    const { user_Id } = request.body; // Get the user ID from the request body
-
-    try {
-        // Find water consumption record by user ID
-        const getConsumption = await WaterConsumption.findOneBy({ user_Id });
-
-        if (!getConsumption) {
-            response.json({
-                status: 0,
-                message: "Water consumption record not found!"
-            });
-            return;
-        }
-
-        // Delete the water consumption record
-        await WaterConsumption.delete({ user_Id });
-
-        response.json({
-            status: 1,
-            message: "Water consumption record has been deleted!",
-        });
-    } catch (error) {
-        console.error("Error deleting water consumption:", error);
-        response.json({
-            status: 0,
-            message: "An error occurred while deleting the water consumption."
-        });
-    }
-}
 }

@@ -154,6 +154,7 @@ const App: React.FC = () => {
             alt="Water Gallon Empty"
             className="gallon-image empty"
           />
+
           <img
             src={WaterGallonMain}
             alt="Water Gallon"
