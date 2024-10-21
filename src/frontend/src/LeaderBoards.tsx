@@ -79,7 +79,7 @@ const LeaderBoards: React.FC = () => {
 
       const renderLeaderboard = () => {
         return (
-            <div>
+            <div className="stats-container">
                 <h2>Weekly Leaderboard</h2>
                 <ol>
                     {leaderboardData.map((user, index) => (
