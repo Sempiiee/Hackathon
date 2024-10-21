@@ -16,8 +16,6 @@ const Profile = () => {
     picture: '',
   });
 
-
-
   useEffect(() => {
     const fetchUserProfile = async () => {
       const email = GlobalState.email ? GlobalState.email : 'Guest';
