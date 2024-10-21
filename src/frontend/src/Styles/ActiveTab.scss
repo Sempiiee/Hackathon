@@ -197,7 +197,7 @@ h4 {
         }
     }
     ol {
-        list-style-type: none;
+        list-style-type: lower-alpha;
         padding: 0;
 
         li {
@@ -207,7 +207,9 @@ h4 {
             color: #333;
         }
     }
+    
 }
+
 
 
 @media (max-width: 480px) {

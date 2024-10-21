@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Styles/ActiveTab.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
+import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 import { useNavigate } from 'react-router-dom';
 import { GlobalState } from './global';
 
@@ -151,6 +152,22 @@ const LeaderBoards: React.FC = () => {
                         </div>
                     ))}
                 </nav>
+
+                <div className="leaderboard-button-container">
+                  <button 
+                  className={`leaderboard-button ${activeTab === 'leaderboards' ? 'active' : 'inactive'}`} 
+                    onClick={() => {
+                    handleTabClick('Leaderboard');
+                  }}
+                  >
+                  <img 
+                    src={LeaderboardIcon} 
+                    className="leaderboard-icon" 
+                    alt="Leaderboard Icon" 
+                    style={{ opacity: activeTab === 'leaderboards' ? 0.6 : 1 }} // Adjusting opacity based on active tab
+                  />
+                  </button>
+                  </div>
 
                 <div className="greeting" onClick={toggleDropdown}>
                     <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>

@@ -71,17 +71,17 @@ const LogUsage: React.FC = () => {
     
         // Calculate total water consumption
         const totalWaterConsumption =
-            (showerTime || 0) * 2 +
-            (brushingFrequency || 0) * 0.5 +
-            (washingFrequency || 0) * 1 +
-            (drinkingWater || 0) * 0.25 +
-            (laundryTime || 0) * 15 +
-            (dishwashingTime || 0) * 10 +
-            (toiletFlushingFrequency || 0) * 6 +
-            (foodDrinkPreparationTime || 0) * 5 +
-            (gardeningTime || 0) * 3 +
-            (petCareTime || 0) * 2 +
-            (carWashingTime || 0) * 20;
+        (showerTime || 0) * 5 +
+        (brushingFrequency || 0) * 0.5 +
+        (washingFrequency || 0) * 2 +
+        (drinkingWater || 0) * 0.25 +
+        (laundryTime || 0) * 50 +
+        (dishwashingTime || 0) * 20 +
+        (toiletFlushingFrequency || 0) * 6 +
+        (foodDrinkPreparationTime || 0) * 5 +
+        (gardeningTime || 0) * 3 +
+        (petCareTime || 0) * 5 +
+        (carWashingTime || 0) * 30;
     
         // Get email from GlobalState
         const email = GlobalState.email ? GlobalState.email : 'Guest';
