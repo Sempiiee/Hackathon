@@ -80,6 +80,30 @@ input[type='submit'] {
   margin-bottom: 1rem;
 }
 
+.buttonSignUp {
+  border: none;
+  color: white;
+  padding: 12px;
+  max-width: 800px;
+  width: 560px;
+  margin-top: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #5474eb;
+  &:hover {
+    background-color: #1433a3;
+  }
+}
+
+
+
+
+
+
+
+
+
 // Media Queries for Responsiveness
 @media (max-width: 1300px) {
   .inputContainer {
@@ -96,6 +120,12 @@ input[type='submit'] {
   }
 
   input[type='submit'] {
+    width: 650px;
+    margin-left: 0%;
+    margin-bottom: 20px;
+  }
+
+  .buttonSignUp{
     width: 650px;
     margin-left: 0%;
     margin-bottom: 20px;
@@ -138,6 +168,13 @@ input[type='submit'] {
     margin-bottom: 20px;
   }
 
+  .buttonSignUp{
+    width: 210px;
+    margin-left: 0%;
+    margin-bottom: 20px;
+
+  }
+
   .inputBoxSelect {
     font-size: 0.9rem;
     margin-left: -25%;
@@ -170,6 +207,13 @@ input[type='submit'] {
     margin-left: 0%;
     margin-bottom: 20px;
   }
+
+  .buttonSignUp{
+    width: 263px;
+    margin-left: 0%;
+    margin-bottom: 20px;
+  }
+
 
   .inputBoxSelect {
     font-size: 0.9rem;

@@ -3,6 +3,7 @@ import "./Styles/ActiveTab.scss";
 import "./Styles/LogUsage.scss";
 import { useNavigate } from 'react-router-dom';
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
+import { GlobalState } from './global'; /// THIS IS THE EMAIL
 
 const LogUsage: React.FC = () => {
     const [usage, setUsage] = useState<number | ''>('');
@@ -64,21 +65,49 @@ const LogUsage: React.FC = () => {
         }
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        console.log(`Water usage input: ${usage} liters`);
-        console.log(`Showering time input: ${showerTime} minutes`);
-        console.log(`Brushing teeth frequency: ${brushingFrequency} times/day`);
-        console.log(`Washing hands frequency: ${washingFrequency} times/day`);
-        console.log(`Drinking water input: ${drinkingWater} glasses`);
-        console.log(`Laundry time input: ${laundryTime} minutes`);
-        console.log(`Dishwashing time input: ${dishwashingTime} minutes`);
-        console.log(`Toilet flushing frequency: ${toiletFlushingFrequency} times/day`);
-        console.log(`Food & drink preparation time: ${foodDrinkPreparationTime} minutes`);
-        console.log(`Gardening time input: ${gardeningTime} minutes`);
-        console.log(`Pet care time input: ${petCareTime} minutes`);
-        console.log(`Car washing time input: ${carWashingTime} minutes`);
-
+    
+        // Calculate total water consumption
+        const totalWaterConsumption =
+            (showerTime || 0) * 2 +
+            (brushingFrequency || 0) * 0.5 +
+            (washingFrequency || 0) * 1 +
+            (drinkingWater || 0) * 0.25 +
+            (laundryTime || 0) * 15 +
+            (dishwashingTime || 0) * 10 +
+            (toiletFlushingFrequency || 0) * 6 +
+            (foodDrinkPreparationTime || 0) * 5 +
+            (gardeningTime || 0) * 3 +
+            (petCareTime || 0) * 2 +
+            (carWashingTime || 0) * 20;
+    
+        // Get email from GlobalState
+        const email = GlobalState.email ? GlobalState.email : 'Guest';
+    
+        // Send the data to the API
+        try {
+            const response = await fetch('/configuration/update-water-consumption', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email,
+                    totalWaterConsumption,
+                }),
+            });
+    
+            const result = await response.json();
+            if (result.status === 1) {
+                console.log('Water consumption updated successfully:', result.data);
+            } else {
+                console.error('Failed to update water consumption:', result.message);
+            }
+        } catch (error) {
+            console.error('Error updating water consumption:', error);
+        }
+   
         // Reset all inputs after submission
         setUsage('');
         setShowerTime('');
@@ -92,13 +121,8 @@ const LogUsage: React.FC = () => {
         setGardeningTime('');
         setPetCareTime('');
         setCarWashingTime('');
-    };
-    const handleSignOut = () => {
-        const confirmSignOut = window.confirm("Are you sure you want to sign out?");
-        if (confirmSignOut) {
-          navigate('/LogIn');
-        }
-      };
+    };    
+    
 
     const handleTabClick = (tab: string) => {
         setActiveTab(tab);
@@ -154,14 +178,14 @@ const LogUsage: React.FC = () => {
                     </nav>
 
                     <div className="greeting" onClick={toggleDropdown}>
-                    <span>Hi!</span>
-                    <span className="dropdown-arrow">▼</span>
+                        <span>Hi, {GlobalState.email ? GlobalState.email : 'Guest'}!</span>
+                        <span className="dropdown-arrow">▼</span>
                     </div>
 
                     {isDropdownOpen && (
                     <div className="dropdown-menu open">
                         <div className="tab" onClick={() => navigate('/Profile')}>Profile</div>
-                        <div className="tab" onClick={handleSignOut}>Sign Out</div>
+                        <div className="tab" onClick={() => { GlobalState.email = ''; navigate('/LogIn');}}>Sign Out</div>
                     </div>
                     )}
             </header>
@@ -209,6 +233,7 @@ const LogUsage: React.FC = () => {
                         name="drinkingWater"
                         value={drinkingWater}
                         onChange={handleInputChange}
+                        required
                         placeholder="Enter number of glasses"
                     />
                 </div>

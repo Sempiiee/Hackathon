@@ -29,12 +29,13 @@ const regions = [
 ];
 
 const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
-  const [firstName, updateFirstName] = useState<string>('');
-  const [middleName, updateMiddleName] = useState<string>('');
-  const [lastName, updateLastName] = useState<string>('');
-  const [location, updateLocation] = useState<string>('');
-  const [email, updateEmail] = useState<string>('');
-  const [password, updatePassword] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [middleInitial, setMiddleInitial] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [region, setRegion] = useState<string>('');
+  const [signupEmail, setSignupEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
   const [firstNameError, setFirstNameError] = useState<string>(''); 
   const [middleNameError, setMiddleNameError] = useState<string>(''); 
   const [lastNameError, setLastNameError] = useState<string>(''); 
@@ -44,22 +45,18 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
   const [activeTab, setActiveTab] = useState<string>("Sign Up");
 
   const navigate = useNavigate();
-
   const validateForm = () => {
     setFirstNameError('');
     setMiddleNameError('');
     setLastNameError('');
     setLocationError('');
-    setEmailError('');
-    setPasswordError('');
     let isValid = true;
 
     if (firstName.trim() === '') {
       setFirstNameError('Please enter your first name');
       isValid = false;
     }
-    
-    if (middleName.trim() === '') {
+    if (middleInitial.trim() === '') {
       setMiddleNameError('Please enter your middle name');
       isValid = false;
     }
@@ -69,17 +66,16 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
       isValid = false;
     }
     
-    if (location.trim() === '') {
+    if (region.trim() === '') {
       setLocationError('Please select your location');
       isValid = false;
     }
-
-    if (email.trim() === '') {
+    if (signupEmail.trim() === '') {
       setEmailError('Please enter your email');
       isValid = false;
     } else {
       const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-      if (!emailPattern.test(email)) {
+      if (!emailPattern.test(signupEmail)) {
         setEmailError('Please enter a valid email');
         isValid = false;
       }
@@ -92,19 +88,36 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
       setPasswordError('The password must be 8 characters or longer');
       isValid = false;
     }
-
     return isValid;
   };
-
-  const onButtonClick_SignUp = () => {
+  // Signup handler
+  const handleSignup = () => {
     if (validateForm()) {
-      setLoggedIn(true);
-      setEmail(email);
-      navigate('/LogIn');
-      console.log('Form is valid, proceed with registration...');
+    fetch(`${import.meta.env.VITE_CANISTER_URL}/configuration/insert`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        middleInitial,
+        lastName,
+        region,
+        email: signupEmail,
+        password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 1) {
+          alert("Signup successful!"); // Notify successful signup
+          navigate('/LogIn'); // Redirect to Log In after successful signup
+        } else {
+          alert(data.message); // Notify of any errors
+        }
+      });
     }
   };
-
   const onButtonLogIn = () => {
     navigate('/LogIn');
   };
@@ -125,8 +138,10 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
     setMenuOpen(prev => !prev);
   };
 
+
+
   return (
-    <div className={'mainContainer'}>
+    <div className="mainContainer">
       <header className="top-bar">
         <div className="menu-button" onClick={toggleMenu}>
           <div></div>
@@ -145,7 +160,7 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
               className={`tab ${activeTab === tab ? "active" : ""}`}
               onClick={() => {
                 handleTabClick(tab);
-                setMenuOpen(false);
+                setMenuOpen(false); // Close menu on tab click
               }}
             >
               {tab}
@@ -158,91 +173,82 @@ const SignUp: React.FC<SignUpProps> = ({ setLoggedIn, setEmail }) => {
           <span className="dropdown-arrow">▼</span>
         </div>
       </header>
-
       <div className={'titleContainer'}>
         <div><h1 className="homeTitle">Sign Up</h1></div>
       </div>
-      <br />
-
+     
       <div className={'inputContainer'}>
         <input
+          type="text"
+          placeholder="First Name"
           value={firstName}
-          placeholder="Enter your first name here"
-          onChange={(ev) => updateFirstName(ev.target.value)}
           className={'inputBox'}
+          onChange={(e) => setFirstName(e.target.value)}
         />
-        <label className="errorLabel">{firstNameError}</label>
+         <label className="errorLabel">{firstNameError}</label>
       </div>
-      <br />
-
+      <br/>
       <div className={'inputContainer'}>
         <input
-          value={middleName}
-          placeholder="Enter your middle name here"
-          onChange={(ev) => updateMiddleName(ev.target.value)}
+          type="text"
+          placeholder="Middle Initial"
+          value={middleInitial}
           className={'inputBox'}
+          onChange={(e) => setMiddleInitial(e.target.value)}
         />
-        <label className="errorLabel">{middleNameError}</label>
+         <label className="errorLabel">{middleNameError}</label>
       </div>
-      <br />
-
-      <div className={'inputContainer'}>
+      <br/>
+      <div className={'inputContainer'}>  
         <input
+          type="text"
+          placeholder="Last Name"
           value={lastName}
-          placeholder="Enter your last name here"
-          onChange={(ev) => updateLastName(ev.target.value)}
           className={'inputBox'}
+          onChange={(e) => setLastName(e.target.value)}
         />
-        <label className="errorLabel">{lastNameError}</label>
+         <label className="errorLabel">{lastNameError}</label>
       </div>
-      <br />
-
-      <div className={'inputContainer'}>
-        <select 
-          value={location}
-          onChange={(ev) => updateLocation(ev.target.value)}
+      <br/>
+      <div className={'inputContainer'}>  
+        <select
+          value={region}
           className={'inputBoxSelect'}
-        >
-          <option value="">Select your location</option>
-          {regions.map((region) => (
-            <option key={region} value={region}>{region}</option>
-          ))}
-        </select>
-        <label className="errorLabel">{locationError}</label>
+          onChange={(e) => setRegion(e.target.value)}
+        ><option value="">Select your location</option>
+        {regions.map((region) => (
+          <option key={region} value={region}>{region}</option>
+        ))}
+      </select>
+         <label className="errorLabel">{locationError}</label>
       </div>
-      <br />
-
-      <div className={'inputContainer'}>
+      <br/>
+      <div className={'inputContainer'}>  
         <input
-          value={email}
-          placeholder="Enter your email here"
-          onChange={(ev) => updateEmail(ev.target.value)}
+          type="email"
+          placeholder="Email"
+          value={signupEmail}
           className={'inputBox'}
+          onChange={(e) => setSignupEmail(e.target.value)}
         />
         <label className="errorLabel">{emailError}</label>
       </div>
-      <br />
-
-      <div className={'inputContainer'}>
-          <input
-            value={password}
-            placeholder="Enter your password here"
-            onChange={(ev) => updatePassword(ev.target.value)}
-            className={'inputBox'}
-            type={'password'}
-          />
-        <label className="errorLabel">{passwordError}</label>
+      <br/>
+      <div className={'inputContainer'}>  
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          className={'inputBox'}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+         <label className="errorLabel">{passwordError}</label>
       </div>
-      <br />
-
-      <div className={'buttonContainer'}>
-        <input className={'inputButton'} type="submit" onClick={onButtonClick_SignUp} value={'Sign Up'} />
-      </div>
+        <button className ="buttonSignUp" onClick={handleSignup}>Sign Up</button>
       <div className={'inputContainer'}>
-        <button className="signUp" onClick={onButtonLogIn}>Already Have an account? Log In</button>
+      <button className = "signUp" onClick={onButtonLogIn}>Already Have an account? Log In</button>
       </div>
     </div>
   );
 };
-
 export default SignUp;

@@ -10,6 +10,7 @@ $background-color: #F0F0F0;
   position: relative;
   background-color: $background-color;
 
+  /*
   @media (max-width: 1300px) {
     background-color: green; // Background for large screens
   }
@@ -21,6 +22,7 @@ $background-color: #F0F0F0;
   @media (max-width: 480px) { // Mobile phones
     background-color: yellow; // Background for mobile
   }
+  */
 }
 
 .content-wrapper {
@@ -47,8 +49,7 @@ $background-color: #F0F0F0;
 .filled {
   z-index: 3; // Bring filled image to the front
   display: inline-block;
-  clip-path: inset(calc(100% - (27.7% + (27.7% * (1.61 * var(--water-usage)))) ) 0% 27.1% 0%);
-  //clip-path: inset(calc(100% - (27.7% + (27.7% * (1.61 * .50)))) 0% 27.1% 0%);
+  //clip-path: inset(calc(100% - (27.7% + (27.7% * (1.61 * var(--water-usage)))) ) 0% 27.1% 0%);
   //background-color: red;
 }
 
@@ -150,12 +151,13 @@ $background-color: #F0F0F0;
 .equivalent-section {
   position: relative; // Positioning relative to the app-container
   padding: 20px; // Padding for spacing
-  background-color: lightblue; // Change this to your desired background color
+  background-color: $background-color; // Change this to your desired background color
   width: 100%; // Full width of the parent
   height: 100vh;
   text-align: center; // Center text within the container
   margin-top: 12vh; // Add margin to separate it from the previous content
   min-height: 300px; // Adjust minimum height as desired
+  background: linear-gradient(to bottom, $background-color 0%, lightblue 50%);
 
   // Shelves for Water Bottles
   .shelves {

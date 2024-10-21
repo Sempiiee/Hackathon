@@ -8,6 +8,7 @@ import Goal from "./Goal";
 import Profile from "./Profile";
 import Impact from "./Impact";
 import LogUsage from "./LogUsage";
+import LeaderBoards from "./LeaderBoards";
 import './Styles/App.scss';
 import './index.scss';
 import { useEffect, useState } from 'react';
@@ -66,6 +67,7 @@ const RouterComponent: React.FC = () => {
       <Route path="/Impact" element={<Impact />} />
       <Route path="/Goal" element={<Goal />} />
       <Route path="/Profile" element={<Profile />} />
+      <Route path="/LeaderBoards" element={<LeaderBoards/>} />
     </Routes>
     </div>
   );

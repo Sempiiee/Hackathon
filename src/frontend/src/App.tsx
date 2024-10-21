@@ -24,7 +24,9 @@ const App: React.FC = () => {
   const [bottleCount, setBottleCount] = useState<number>(0);
   const [shelves, setShelves] = useState<number[]>([0]);
 
-  const [waterConsumption, setWaterConsumption] = useState<number>(0.8); // State to track water consumption
+  const [waterConsumption, setWaterConsumption] = useState<number>(0.5); // State to track water consumption
+
+  // Calculates cropping for WaterGallonFilled image in reference to the canister size
   const clipPath = `inset(calc(100% - (27.7% + (27.7% * (1.61 * ${waterConsumption})))) 0% 27.1% 0%)`;
 
   const handleTabClick = (tab: string) => {
@@ -67,12 +69,33 @@ const App: React.FC = () => {
     return window.innerWidth <= 1300 ? 7 : 10; 
   };
 
+  const getMaxShelves = () => {
+    return window.innerWidth <= 1300 ? 3 : 4; // 3 shelves for smaller screens, 4 for larger
+  };
+
+  const getMaxBottlesPerShelf = () => {
+    return window.innerWidth <= 1300 ? 6 : 9; // 6 bottles for smaller screens, 9 for larger
+  };
+
   const addBottle = () => {
     setBottleCount((prevCount) => {
       const newCount = prevCount + 1;
       const newShelves = Math.floor(newCount / bottlesPerShelf());
-      setShelves(Array.from({ length: newShelves + 1 }, (_, i) => i));
-      return newCount;
+      
+      const maxShelves = getMaxShelves(); // Get the max shelves based on screen width
+      const maxBottlesPerShelf = getMaxBottlesPerShelf(); // Get the max bottles per shelf based on screen width
+  
+      // Calculate total bottles allowed considering shelves
+      const totalBottlesAllowed = maxShelves * maxBottlesPerShelf;
+  
+      // Only update shelves if it's within the maximum limit
+      if (newCount <= totalBottlesAllowed) {
+        setShelves(Array.from({ length: newShelves + 1 }, (_, i) => i));
+        return newCount;
+      }
+  
+      // If the max number of bottles is reached, no more bottles are added
+      return prevCount;
     });
   };
 
