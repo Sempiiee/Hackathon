@@ -10,6 +10,7 @@ import BouncingArrows from "../public/Bouncing_Arrows.gif";
 import StaticArrows from "../public/Static_Arrows.png";
 import WaterBottle from "../public/Water_Bottle.png";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
+import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 const App: React.FC = () => {
   const navigate = useNavigate();
@@ -41,8 +42,7 @@ const App: React.FC = () => {
       navigate('/Goal');
     } else if (tab === "Impact") {
       navigate('/Impact');
-    }
-    else if (tab === "Leader Boards") {
+    }else if (tab === "Leaderboard"){
       navigate('/LeaderBoards');
     }
   };
@@ -146,7 +146,7 @@ const App: React.FC = () => {
         </div>
 
         <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-          {["Log Usage", "Tips & Advice", "Overview", "Goals", "Leader Boards", "Impact"].map(tab => (
+          {["Log Usage", "Tips & Advice", "Overview", "Goals", "Impact"].map(tab => (
             <div
               key={tab}
               className={`tab ${activeTab === tab ? "active" : ""}`}
@@ -159,6 +159,18 @@ const App: React.FC = () => {
             </div>
           ))}
         </nav>
+
+        <div className="leaderboard-button-container">
+          <button 
+            className={`leaderboard-button ${activeTab === 'leaderboards' ? 'active' : ''}`} 
+            onClick={() => {
+              handleTabClick('Leaderboard');
+              setMenuOpen(false);
+            }}
+          >
+            <img src={LeaderboardIcon} className="leaderboard-icon" alt="Leaderboard Icon" />
+          </button>
+        </div>
 
         <div className="greeting" onClick={toggleDropdown}>
           <span>Hi!</span>
