@@ -253,7 +253,7 @@
     width: 40px;
     height: 45px;
     opacity: 0.6;
-    transition: color 1s ease;
+    transition: color 0.3s ease;
 }
 
 // Greeting section
@@ -263,6 +263,7 @@
     font-weight: 525;
     align-items: center;
     font-size: 1.4rem;
+    cursor: pointer;
 }
 
 .dropdown-arrow {

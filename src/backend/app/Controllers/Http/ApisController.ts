@@ -204,4 +204,76 @@ export default class ApisController {
             data: waterConsumptionEntries,
         });
     }
+
+    ///// Fetch LEADERBOARD
+
+    static async fetchLeaderBoard(request: Request, response: Response) {
+        try {
+            // Fetch all users and their water consumption entries
+            const users = await Configuration.find();
+
+            // Calculate the total water consumption for each user
+            const leaderboard = users.map(user => {
+                const totalWaterConsumption = [
+                    user.waterConsumptionEntry1 || 0,
+                    user.waterConsumptionEntry2 || 0,
+                    user.waterConsumptionEntry3 || 0,
+                    user.waterConsumptionEntry4 || 0,
+                    user.waterConsumptionEntry5 || 0,
+                    user.waterConsumptionEntry6 || 0,
+                    user.waterConsumptionEntry7 || 0,
+                ].reduce((acc, entry) => acc + entry, 0);
+
+                return {
+                    lastName: user.lastName,
+                    region: user.region,
+                    totalWaterConsumption, // Summing up the week's water consumption
+                };
+            });
+
+            // Sort the leaderboard by total water consumption in ascending order
+            leaderboard.sort((a, b) => a.totalWaterConsumption - b.totalWaterConsumption);
+
+            // Return the sorted leaderboard
+            response.json({
+                status: 1,
+                data: leaderboard,
+            });
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error);
+            response.status(500).json({
+                status: 0,
+                message: 'Failed to fetch leaderboard',
+            });
+        }
+    }
+
+
+    /// Fetch Profile
+    static async fetchProfile(request: Request, response: Response) {
+        const { email } = request.body;
+    
+        // Find the user by email
+        const user = await Configuration.findOne({ where: { email } });
+    
+        if (!user) {
+            return response.json({
+                status: 0,
+                message: "User not found!",
+            });
+        }
+    
+        // Get the user details
+        const Profile = {
+            name: user.firstName + ' ' + user.middleInitial + '. ' + user.lastName,
+            address: user.region, // Assuming region represents the address
+            email: user.email,
+            password: user.password, // Adjust this as necessary
+        };
+    
+        response.json({
+            status: 1,
+            data: Profile,
+        });
+    }
 }

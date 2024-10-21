@@ -13,10 +13,10 @@ Route.post('/configuration/update-water-consumption', ApisController.updateWater
 // See Statistics
 Route.post('/configuration/fetch-water-consumption', ApisController.fetchWaterConsumptionStats);
 
-/*
-Route.get('/configurations',ApisController.configurations)
-Route.post('/configuration/update', ApisController.update_configuration)
-Route.post('/configuration/delete', ApisController.delete_configuration)
-*/
+// See Leaderboard
+Route.post('/configuration/fetch-leaderboard', ApisController.fetchLeaderBoard);
+
+// See profile
+Route.post('/configuration/fetch-profile', ApisController.fetchProfile);
 
 export { Route as routes };

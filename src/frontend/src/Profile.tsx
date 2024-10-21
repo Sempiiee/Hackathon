@@ -4,16 +4,47 @@ import "./index.scss";
 import "./Styles/Profile.scss";
 import WaterdropLogo from "../public/Waterdrop_Logo.png";
 import UserIcon from "../public/User_Icon.png";
+import { GlobalState } from './global';
 import LeaderboardIcon from "../public/Leaderboard_Icon.png";
 
 const Profile = () => {
   const [user, setUser] = useState({
-    name: 'Sean Iguico',
-    address: '123 Main St, Anytown, USA',
-    email: 'gggggg@gmail.com',
-    password: '123456789',
+    name: 'NameHolder',
+    address: 'AddressHolder',
+    email: 'Email@Holder',
+    password: '12PassHolder',
     picture: '',
   });
+
+
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const email = GlobalState.email ? GlobalState.email : 'Guest';
+
+      try {
+        const response = await fetch('/configuration/fetch-profile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        if (data.status === 1) {
+          setUser(data.data); // Update user state with fetched data
+          setFormData(data.data); // Also update formData
+        } else {
+          console.error(data.message); // Handle user not found case
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
   
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>("Profile");
@@ -32,6 +63,7 @@ const Profile = () => {
     setUser(formData);
     setIsEditing(false);
   };
+  
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
     if (tab === "Log Usage") {
@@ -66,8 +98,7 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-         <header className="top-bar">
-        {/* Hamburger Menu Button */}
+      <header className="top-bar">
         <div className={`menu-button ${isMenuOpen ? 'open' : ''}`} onClick={toggleMenu}>
           <div></div>
           <div></div>
@@ -86,14 +117,13 @@ const Profile = () => {
               className={`tab ${activeTab === tab ? "active" : ""}`}
               onClick={() => {
                 handleTabClick(tab);
-                setMenuOpen(false); // Close menu on tab click
+                setMenuOpen(false);
               }}
             >
               {tab}
             </div>
           ))}
         </nav>
-
 
         <div className="leaderboard-button-container">
           <button 
@@ -107,8 +137,6 @@ const Profile = () => {
           </button>
         </div>
 
-
-
         <div className="greeting" onClick={toggleDropdown}>
           <span>Hi!</span>
           <span className="dropdown-arrow">▼</span>
@@ -121,9 +149,7 @@ const Profile = () => {
           </div>
         )}
       </header>
-      <h2 className="profile-title">User Profile</h2>
-      <img src={UserIcon} alt="Profile" className="profile-picture" />
-      
+      <img src={user.picture || WaterdropLogo} alt="Profile" className="profile-picture" />
       {isEditing ? (
         <form onSubmit={handleSubmit} className="profile-form">
           <div className="form-group">
