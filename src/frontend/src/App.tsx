@@ -193,7 +193,7 @@ const App: React.FC = () => {
             alt="Water Gallon Filled"
             className="gallon-image filled"
             style={{
-              clipPath, // Apply the calculated clip-path
+              clipPath,
             }}
           />
           <img
